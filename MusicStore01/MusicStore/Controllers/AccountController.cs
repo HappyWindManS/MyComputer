@@ -35,7 +35,7 @@ namespace MusicStore.Controllers
                 string VC = (random.Next(111111, 999999)).ToString();
                 var mailService = new Mafly.Mail.Mail();
 
-                //参数：接收者邮箱、内容 
+                //参数：接收者邮箱、内容
                 mailService.Send(model.Email, "验证码是："+VC);
 
 
