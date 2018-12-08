@@ -1,0 +1,35 @@
+﻿@model MusicStore.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "新用户注册";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<h2>输入验证码</h2>
+@using (Html.BeginForm("register", "account", FormMethod.Post))
+{
+    //表单内容
+    @Html.AntiForgeryToken()
+    <div>
+        <fieldset>
+            <legend>验证邮箱验证码</legend>        
+            @* 验证码textbox *@
+            <div class="editor-label">
+                @Html.LabelFor(x => x.VerificationCode)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(x => x.VerificationCode, new { placeholder = "请输入验证码" })
+                @Html.ValidationMessageFor(x => x.VerificationCode)
+            </div>
+
+            @*<p class="text-danger">
+                    @msg
+                </p>*@
+            <p>
+                <input type="submit" value="确认" class="btn btn-success" style="width: 90px" />
+            </p>
+        </fieldset>
+    </div>
+}
+
+

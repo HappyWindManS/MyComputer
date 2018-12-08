@@ -24,6 +24,8 @@ namespace MusicStore.Controllers
             return View();
         }
 
+        public static RegisterViewModel modelTest;
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
@@ -36,51 +38,50 @@ namespace MusicStore.Controllers
                 var mailService = new Mafly.Mail.Mail();
 
                 //参数：接收者邮箱、内容
-                mailService.Send(model.Email, "验证码是："+VC);
-
-
-                return View();
+                mailService.Send(model.Email, "验证码是：" + VC);
+                modelTest = model;
+                return View("VerificationCodeView");              
             }
             else
             {
-                if (ModelState.IsValid)
+            //    if (ModelState.IsValid)
+            //{
+                var person = new Person()
                 {
-                    var person = new Person()
-                    {
-                        FirstName = model.FullName.Substring(0, 1),
-                        LastName = model.FullName.Substring(1, model.FullName.Length - 1),
-                        Name = model.FullName,
-                        CredentialsCode = "",
-                        Birthday = DateTime.Now,
-                        Sex = true,
-                        MobileNumber = "18000010001",
-                        Email = model.Email,
-                        TelephoneNumber = "18000010001",
-                        Description = "",
-                        CreateDateTime = DateTime.Now,
-                        UpdateTime = DateTime.Now,
-                        InquiryPassword = "未设置",
-                    };
-                    var user = new ApplicationUser()
-                    {
-                        UserName = model.UserName,
-                        FirstName = model.FullName.Substring(0, 1),
-                        LastName = model.FullName.Substring(1, model.FullName.Length - 1),
-                        ChineseFullName = model.FullName,
-                        MobileNumber = "18000010001",
-                        Email = model.Email,
-                        Person = person,
-                    };
+                    FirstName = modelTest.FullName.Substring(0, 1),
+                    LastName = modelTest.FullName.Substring(1, modelTest.FullName.Length - 1),
+                    Name = modelTest.FullName,
+                    CredentialsCode = "",
+                    Birthday = DateTime.Now,
+                    Sex = true,
+                    MobileNumber = "18000010001",
+                    Email = modelTest.Email,
+                    TelephoneNumber = "18000010001",
+                    Description = "",
+                    CreateDateTime = DateTime.Now,
+                    UpdateTime = DateTime.Now,
+                    InquiryPassword = "未设置",
+                };
+                var user = new ApplicationUser()
+                {
+                    UserName = modelTest.UserName,
+                    FirstName = modelTest.FullName.Substring(0, 1),
+                    LastName = modelTest.FullName.Substring(1, modelTest.FullName.Length - 1),
+                    ChineseFullName = modelTest.FullName,
+                    MobileNumber = "18000010001",
+                    Email = modelTest.Email,
+                    Person = person,
+                };
 
-                    var idManager = new IdentityManager();
-                    idManager.CreateUser(user, model.PassWord);
-                    idManager.AddUserToRole(user.Id, "RegisterUser");
+                var idManager = new IdentityManager();
+                idManager.CreateUser(user, model.PassWord);
+                idManager.AddUserToRole(user.Id, "RegisterUser");
 
-                    //return RedirectToAction();
-                    return Content("<script>alert('恭喜注册成功');location.href'" + Url.Action("login", "Account") + "</script>");
-                }
-                //用户的保存Person ApplicationUser
-                return View();
+                //return RedirectToAction();
+                return Content("<script>alert('恭喜注册成功');location.href'" + Url.Action("login", "Account") + "</script>");
+            //}
+            //用户的保存Person ApplicationUser
+            //return View();
             }
         }
 

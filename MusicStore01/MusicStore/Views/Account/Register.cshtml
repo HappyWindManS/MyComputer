@@ -14,12 +14,20 @@
     <div>
         <fieldset>
             <legend>填写用户信息</legend>
+            @*UserName*@
             <div class="editor-label">
                 @Html.LabelFor(x => x.UserName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(x => x.UserName, new { placeholder = "姓名" })
+                @Html.TextBoxFor(x => x.UserName, new { placeholder = "登录名" })
                 @Html.ValidationMessageFor(x => x.UserName)
+             @*FullName*@   
+            <div class="editor-label">
+                @Html.LabelFor(x => x.FullName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(x => x.FullName, new { placeholder = "姓名" })
+                @Html.ValidationMessageFor(x => x.FullName)
             </div>
             @* 邮箱 *@
             <div class="editor-label">
@@ -46,20 +54,18 @@
                 @Html.ValidationMessageFor(x => x.ConfirmPassWord)
             </div>
             @* 验证码textbox *@
-            <div class="editor-label">
+            @*<div class="editor-label">
                 @Html.LabelFor(x => x.VerificationCode)
             </div>
             <div class="editor-field">
                 @Html.PasswordFor(x => x.VerificationCode, new { placeholder = "请先获取验证码，再进行注册" })
                 @Html.ValidationMessageFor(x => x.VerificationCode)
-            </div>
+            </div>*@
 
             @*<p class="text-danger">
             @msg
         </p>*@
             <p>
-                <input type="submit" value="发送验证码" class="btn btn-success" style="width: 90px" />
-
                 <input type="submit" value="注册" class="btn btn-success" style="width: 70px" />
             </p>
         </fieldset>

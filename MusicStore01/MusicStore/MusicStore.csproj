@@ -257,6 +257,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\TestHack.cshtml" />
     <Content Include="Views\Account\ChangePassWord.cshtml" />
+    <Content Include="Views\Account\VerificationCodeView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
