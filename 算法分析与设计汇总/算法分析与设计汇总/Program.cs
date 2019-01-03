@@ -10,6 +10,7 @@ namespace 算法分析与设计汇总
             Console.WriteLine("请输入回文");
             //DecryptTheQQNumber("44724302");
             Console.WriteLine(DecryptionPalindrome(Console.ReadLine()));
+            Console.WriteLine(factorial(5).ToString());
             Console.ReadKey();
         }
 
@@ -91,7 +92,7 @@ namespace 算法分析与设计汇总
                 stack.Pop();
             }
             //通过长度去判断两个栈的值是否相等
-            for(int i=0;i<stack.Count;i++)
+            for(int i=0;i<stack.Count+mirroring.Count;i++)
             {
                 if(mirroring.Pop().ToString()!=stack.Pop().ToString())
                 {
@@ -100,6 +101,19 @@ namespace 算法分析与设计汇总
             }
             return "这是回文";
                
+        }
+        #endregion
+
+        #region 阶乘
+        public static int factorial(int transmit)
+        {
+            //递归边界
+            if(transmit<=1)
+            {
+                return 1;
+            }
+            //返回 transmit 并再次调用方法 factorial
+            return transmit * factorial(transmit - 1);
         }
         #endregion
     }
