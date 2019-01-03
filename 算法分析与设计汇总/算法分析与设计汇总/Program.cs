@@ -7,10 +7,11 @@ namespace 算法分析与设计汇总
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("请输入回文");
-            //DecryptTheQQNumber("44724302");
-            Console.WriteLine(DecryptionPalindrome(Console.ReadLine()));
+            //Console.WriteLine("请输入回文");
+            ////DecryptTheQQNumber("44724302");
+            //Console.WriteLine(DecryptionPalindrome(Console.ReadLine()));
             Console.WriteLine(factorial(5).ToString());
+            Console.WriteLine(Fibonacci(5).ToString());
             Console.ReadKey();
         }
 
@@ -115,6 +116,16 @@ namespace 算法分析与设计汇总
             //返回 transmit 并再次调用方法 factorial
             return transmit * factorial(transmit - 1);
         }
+        #endregion
+
+        #region Fibonacci
+        public static int Fibonacci(int i)
+        {
+            return i <=1 ? 1: Fibonacci(i-1) + Fibonacci(i - 2);
+        }
+        #endregion
+
+        #region
         #endregion
     }
 }
