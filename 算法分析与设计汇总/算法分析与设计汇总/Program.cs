@@ -22,12 +22,12 @@ namespace 算法分析与设计汇总
         public static void PerfectMat()
         {       
             //首先遍历要判断是否是完美数的值
-            for (int i = 2; i < 10000; i++)
+            for (int i = 1; i < 10000; i++)
             {
                 //确定一个值，用来+=能被I整除的L
                 int sum = 0;
                 //遍历比它小的值
-                for (int l = 1; l < i / 2 ; l++)
+                for (int l = 1; l < i / 2+0.5 ; l++)
                 {
                     //判断L值能否被I值整除
                     if (i % l == 0)
