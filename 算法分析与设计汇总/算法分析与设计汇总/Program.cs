@@ -10,8 +10,9 @@ namespace 算法分析与设计汇总
             //Console.WriteLine("请输入回文");
             ////DecryptTheQQNumber("44724302");
             //Console.WriteLine(DecryptionPalindrome(Console.ReadLine()));
-            Console.WriteLine(factorial(5).ToString());
-            Console.WriteLine(Fibonacci(5).ToString());
+            //Console.WriteLine(factorial(5).ToString());
+            //Console.WriteLine(Fibonacci(5).ToString());
+            PerfectMat();
             Console.ReadKey();
         
         }
@@ -19,14 +20,14 @@ namespace 算法分析与设计汇总
         #region 寻找完美数
         //寻找完美数
         public static void PerfectMat()
-        {
-            //确定一个值，用来+=能被I整除的L
-            int sum = 0;
+        {       
             //首先遍历要判断是否是完美数的值
-            for (int i = 0; i < 10000; i++)
+            for (int i = 2; i < 10000; i++)
             {
+                //确定一个值，用来+=能被I整除的L
+                int sum = 0;
                 //遍历比它小的值
-                for (int l = 0; l < i / 2 + 0.5; l++)
+                for (int l = 1; l < i / 2 ; l++)
                 {
                     //判断L值能否被I值整除
                     if (i % l == 0)
