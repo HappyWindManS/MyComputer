@@ -125,7 +125,34 @@ namespace 算法分析与设计汇总
         }
         #endregion
 
-        #region
+        #region Ackerman
+        public static int Ackerman(int n,int m)
+        {
+            if(n==1&&m==0)
+            {
+                return 2;
+            }
+            if(n==0)
+            {
+                return 1;
+            }
+            if(m==0)
+            {
+                return n + 2;
+            }
+            return Ackerman(Ackerman(n - 1, m), m - 1);
+        }
+        #endregion
+
+        #region 递归排列问题
+        public static Stack Arrange(int[] original)
+        {
+            Stack change = new Stack();
+            if (change.Count!=original.Length)
+            {
+            }
+            return null;
+        }
         #endregion
     }
 }
