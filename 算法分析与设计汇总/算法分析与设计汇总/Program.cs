@@ -13,6 +13,7 @@ namespace 算法分析与设计汇总
             Console.WriteLine(factorial(5).ToString());
             Console.WriteLine(Fibonacci(5).ToString());
             Console.ReadKey();
+        
         }
 
         #region 寻找完美数
@@ -144,12 +145,22 @@ namespace 算法分析与设计汇总
         }
         #endregion
 
+        #region 插入排序
+        public static int[] insertionSort(int[] array)
+        {
+            int[] change = new int[array.Length];
+            return null;
+        }
+
+        #endregion
+
         #region 递归排列问题
         public static Stack Arrange(int[] original)
         {
             Stack change = new Stack();
             if (change.Count!=original.Length)
             {
+
             }
             return null;
         }
