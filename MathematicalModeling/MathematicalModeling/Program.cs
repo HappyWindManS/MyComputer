@@ -25,7 +25,7 @@ namespace MathematicalModeling
         //配置
         public static string[,] configuration()
         {
-            string[,] configuration=new string[6, 2];
+            string[,] configuration = new string[6, 2];
             configuration[0, 0] = "B1";
             configuration[1, 0] = "B2";
             configuration[2, 0] = "B3";
@@ -75,7 +75,7 @@ namespace MathematicalModeling
         }
         public static void ManyModels()
         {
-            
+
         }
     }
 }
