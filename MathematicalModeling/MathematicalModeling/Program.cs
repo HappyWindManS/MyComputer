@@ -71,7 +71,7 @@ namespace MathematicalModeling
 
         public static void test()
         {
-
+            if()
         }
         public static void ManyModels()
         {
