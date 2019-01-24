@@ -8,8 +8,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            int[] nums = { 5, 6, 3, 1, 2, 2, 3, 5, 6 };
-            Console.WriteLine(SingleNumber(nums));
+            int[] nums = { 5, 6, 3, 1, 2, 2, 3, 6,5};
+            Console.WriteLine(all(nums, nums.Length));
             Console.ReadKey();
         }
 
@@ -37,6 +37,10 @@ namespace Test
                 result = result ^ nums[i];
             }
             return result;
+        }
+        public static int all(int[] nums,int i)
+        {            
+            return i <= 1 ? nums[0] : nums[i-1] ^ all(nums,i-1);
         }
     }
 }

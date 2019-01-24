@@ -7,7 +7,8 @@ namespace test2
         static void Main(string[] args)
         {
             int[] aa = new int[9] { 1,2,3,3,2,5,5,6,6};
-            Console.WriteLine(OnlyAFew(aa)[0]);
+            int i = 1;
+            Console.WriteLine((&i).ToString());
             Console.ReadKey();
         }
         
