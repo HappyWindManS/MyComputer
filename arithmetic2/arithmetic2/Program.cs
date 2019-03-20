@@ -55,11 +55,11 @@ namespace arithmetic2
                     }
                     break;
             }
-            FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
+            FileStream fs = new FileStream("E:\\四则运算.txt", FileMode.Create);
             foreach (string a in fourOperations.Keys)
             {
                 //获得字节数组
-                byte[] data = System.Text.Encoding.Default.GetBytes(a+"\n");
+                byte[] data = System.Text.Encoding.Default.GetBytes(a+" ="+"\r\n");
                 //开始写入
                 fs.Write(data, 0, data.Length);           
             }
