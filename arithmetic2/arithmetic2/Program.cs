@@ -70,7 +70,21 @@ namespace arithmetic2
                     #region 六年级题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        Console.WriteLine(topicssix(scope));
+                        string topic = (topicssix(scope));
+                        //string answer = (fractionalArithmetic(topic));
+                        if (fourOperations.Contains(topic))
+                        {
+                            i--;
+                            break;
+                        }
+                        if (Convert.ToDouble(answer) > 0)
+                        {
+                            fourOperations.Add(topic, answer);
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
                     break;
                     #endregion
@@ -116,7 +130,35 @@ namespace arithmetic2
             Console.WriteLine("生成完毕");
             Console.ReadKey();
         }
-
+        //小数转分数
+        public static string FractionalConversion(string decimals)
+        {
+            //因为小数只生成一位小数，所以分母可以确定为2-10，公约数为2/3/5
+            //    int indexes = decimals.IndexOf(".");
+            //    string conv = decimals.Substring(indexes+1, decimals.Length);
+            //    return reductionOfFraction(conv+"/10");
+            //将数*10再进行约分
+            return reductionOfFraction(decimals.Replace(".", "")+"/10");
+        }
+        //分数约分
+        public static string reductionOfFraction(string grade)
+        {
+            int indexes = grade.IndexOf("/");
+            int element = int.Parse(grade.Substring(0, indexes - 1));
+            int denominator = int.Parse(grade.Substring(indexes+1, grade.Length));
+            int min = Math.Min(element, denominator);
+            for(int i=2;i<min;i++)
+            {
+                if(element%i==0&&denominator%i==0)
+                {
+                    element = element / i;
+                    denominator = denominator / i;
+                    min = Math.Min(element, denominator);
+                    i = 2;
+                }
+            }
+            return element.ToString() + "/" + denominator;
+        }
         //无分数结果验算
         public static string consequence(string equation)
         {
@@ -128,6 +170,39 @@ namespace arithmetic2
             DataTable dt = new DataTable();
             string really_data = dt.Compute(formula, "false").ToString();
             return really_data;
+        }
+        //分数的验算
+        public static string fractionalArithmetic(string symbol, string one,string two)
+        {
+            //取出第一个数的分子和分母
+            int indexesOne = one.IndexOf("/");
+            int elementOne = int.Parse(one.Substring(0, indexesOne - 1));
+            int denominatorOne = int.Parse(one.Substring(indexesOne + 1, one.Length));
+            //记录第一个数的分母
+            int lalal = denominatorOne;
+            //取出第二个数的分子和分母
+            int indexesTwo = two.IndexOf("/");
+            int elementTwo = int.Parse(two.Substring(0, indexesOne - 1));
+            int denominatorTwo = int.Parse(two.Substring(indexesOne + 1, two.Length));
+            //假设第一个数第二个数之间的公约数都是对方,计算第一个数的倍数
+            elementOne = elementOne * denominatorTwo;
+            //第二个数的倍数
+            elementTwo = elementTwo * lalal;
+            denominatorTwo = denominatorTwo * lalal;
+            //如果是除法
+            if (symbol=="÷")
+            {
+               return reductionOfFraction((elementOne.ToString() +"/"+ elementTwo.ToString()));
+            }
+            //第一个分子与第二个分子的换算
+            string strin=consequence(elementOne+symbol+elementTwo);           
+            return reductionOfFraction(strin+"/"+denominatorTwo);
+               
+        }
+        //六年级题目的解法
+        public static string solution(string topic)
+        {
+         
         }
         #region 生成题目的逻辑
         //生成四年级题目
