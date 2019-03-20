@@ -23,6 +23,7 @@ namespace arithmetic2
             switch(num)
             {
                 case 1:
+                    #region 四年级题目
                     for (int i = 0; i < quantity; i++)
                     {
                         string topic = (topicfour(scope));
@@ -42,23 +43,44 @@ namespace arithmetic2
                         }
                     }
                     break;
+                #endregion
                 case 2:
+                    #region 五年级题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        Console.WriteLine(topicfive(scope));
+                        string topic = (topicfive(scope));
+                        string answer = (consequence(topic));
+                        if (fourOperations.Contains(topic))
+                        {
+                            i--;
+                            break;
+                        }
+                        if (Convert.ToDouble(answer) > 0)
+                        {
+                            fourOperations.Add(topic, answer);
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
                     break;
+                #endregion
                 case 3:
+                    #region 六年级题目
                     for (int i = 0; i < quantity; i++)
                     {
                         Console.WriteLine(topicssix(scope));
                     }
                     break;
+                    #endregion
                 case 4:
+                    #region 混合运算题目
                     for (int i = 0; i < quantity; i++)
                     {
                         Console.WriteLine(mixture(scope));
                     }
+                    #endregion
                     break;
             }
             #region 写入TXT
@@ -94,7 +116,8 @@ namespace arithmetic2
             Console.WriteLine("生成完毕");
             Console.ReadKey();
         }
-        //结果验算
+
+        //无分数结果验算
         public static string consequence(string equation)
         {
             //小数与整数运算           
@@ -106,6 +129,7 @@ namespace arithmetic2
             string really_data = dt.Compute(formula, "false").ToString();
             return really_data;
         }
+        #region 生成题目的逻辑
         //生成四年级题目
         public static string topicfour(int scope)
         {
@@ -117,14 +141,14 @@ namespace arithmetic2
         public static string topicfive(int scope)
         {
             string ret;
-            ret = decimals(scope) + " " + operators() + " " + decimals(scope) + " " + operators() + " " + decimals(scope) + " =";
+            ret = decimals(scope) + " " + operators() + " " + decimals(scope) + " " + operators() + " " + decimals(scope);
             return ret;
         }
         //生成六年级题目
         public static string topicssix(int scope)
         {
             string ret;
-            ret = grade(scope) + " " + operators() + " " + grade(scope) + " " + operators() + " " + grade(scope) + " =";
+            ret = grade(scope) + " " + operators() + " " + grade(scope) + " " + operators() + " " + grade(scope);
             return ret;
         }
         //生成混合题目
@@ -153,7 +177,8 @@ namespace arithmetic2
             }
             return ret;
         }
-
+        #endregion
+        #region 生成数与符号
         //随机整数
         public static string integer(int scope)
         {
@@ -194,22 +219,7 @@ namespace arithmetic2
         {
 
         }
-        //正常运算
-        public static int operation(string symbol,int num1,int num2)
-        {
-            switch (symbol)
-            {
-                case "＋":
-                    return num1+num2;
-                case "－":
-                    return num1-num2;
-                case "×":
-                    return num1*num2;
-                case "÷":
-                    return num2/num2;
-            }
-            return 0;
-        }
+        #endregion
         //分数运算
         public static string operation(string symbol,string num1,string num2)
         {
