@@ -2,6 +2,8 @@
 //哈希表
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 
 namespace arithmetic2
 {
@@ -22,35 +24,67 @@ namespace arithmetic2
                 case 1:
                     for (int i = 0; i < quantity; i++)
                     {
-                        Console.WriteLine(topicfour(scope));
+                        string topic = (topicfour(scope));
+                        if(Convert.ToDouble(consequence(topic))>0)
+                        {
+                            fourOperations.Add(topic, consequence(topic));
+                            Console.WriteLine(topic + " = " + consequence(topic));
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
                     break;
                 case 2:
                     for (int i = 0; i < quantity; i++)
                     {
-                        topicfive(scope);
+                        Console.WriteLine(topicfive(scope));
                     }
                     break;
                 case 3:
                     for (int i = 0; i < quantity; i++)
                     {
-                        topicssix(scope);
+                        Console.WriteLine(topicssix(scope));
                     }
                     break;
                 case 4:
                     for (int i = 0; i < quantity; i++)
                     {
-                        mixture(scope);
+                        Console.WriteLine(mixture(scope));
                     }
                     break;
             }
+            FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
+            foreach (string a in fourOperations.Keys)
+            {
+                //获得字节数组
+                byte[] data = System.Text.Encoding.Default.GetBytes(a+"\n");
+                //开始写入
+                fs.Write(data, 0, data.Length);           
+            }
+            //清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
             Console.ReadKey();
+        }
+        //结果验算
+        public static string consequence(string equation)
+        {
+            //小数与整数运算           
+            string formula = equation.Replace("÷","/");
+            formula = formula.Replace("×", "*");
+            formula = formula.Replace("＋", "+");
+            formula = formula.Replace("－", "-");
+            DataTable dt = new DataTable();
+            string really_data = dt.Compute(formula, "false").ToString();
+            return really_data;
         }
         //生成四年级题目
         public static string topicfour(int scope)
         {
             string ret;
-            ret = integer(scope) + " " + operators() + " " + integer(scope) + " " + operators() + " " + integer(scope) + " =";
+            ret = integer(scope) + " " + operators() + " " + integer(scope) + " " + operators() + " " + integer(scope);
             return ret;
         }
         //生成五年级题目
@@ -74,7 +108,7 @@ namespace arithmetic2
             Random random = new Random();
             for(int i=0;i<3;i++)
             {              
-                switch (random.Next(1,3))
+                switch (random.Next(1,4))
                 {
                     case 1:
                         ret += integer(scope);
