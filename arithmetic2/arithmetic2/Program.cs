@@ -19,16 +19,22 @@ namespace arithmetic2
             int scope = int.Parse(Console.ReadLine());
             //利用哈希表进行数据的存储与查重
             Hashtable fourOperations= new Hashtable();
+            Console.WriteLine("正在生成题目,请稍等");
             switch(num)
             {
                 case 1:
                     for (int i = 0; i < quantity; i++)
                     {
                         string topic = (topicfour(scope));
-                        if(Convert.ToDouble(consequence(topic))>0)
+                        string answer = (consequence(topic));
+                        if(fourOperations.Contains(topic))
                         {
-                            fourOperations.Add(topic, consequence(topic));
-                            Console.WriteLine(topic + " = " + consequence(topic));
+                            i--;
+                            break;
+                        }
+                        if (Convert.ToDouble(answer)>0)
+                        {
+                            fourOperations.Add(topic, answer);
                         }
                         else
                         {
@@ -55,17 +61,37 @@ namespace arithmetic2
                     }
                     break;
             }
-            FileStream fs = new FileStream("E:\\四则运算.txt", FileMode.Create);
+            #region 写入TXT
+            //题目的TXT
+            FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
+            //答案的TXT
+            FileStream da = new FileStream("D:\\四则运算的答案.txt", FileMode.Create);
+            int plus = 1;
             foreach (string a in fourOperations.Keys)
-            {
+            {                
                 //获得字节数组
-                byte[] data = System.Text.Encoding.Default.GetBytes(a+" ="+"\r\n");
+                byte[] data = System.Text.Encoding.Default.GetBytes("第"+ plus + "题."+a+" ="+"\r\n");
                 //开始写入
-                fs.Write(data, 0, data.Length);           
+                fs.Write(data, 0, data.Length);
+                plus++;
             }
             //清空缓冲区、关闭流
             fs.Flush();
             fs.Close();
+            plus = 1;
+            foreach (string b in fourOperations.Values)
+            {
+                //获得字节数组
+                byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题:"+b+"\r\n");
+                //开始写入
+                da.Write(data, 0, data.Length);
+                plus++;
+            }
+            //清空缓冲区、关闭流
+            da.Flush();
+            da.Close();
+            #endregion
+            Console.WriteLine("生成完毕");
             Console.ReadKey();
         }
         //结果验算
