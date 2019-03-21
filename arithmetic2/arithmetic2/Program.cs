@@ -155,7 +155,7 @@ namespace arithmetic2
                     element = element / i;
                     denominator = denominator / i;
                     min = Math.Min(element, denominator);
-                    i = 2;
+                    i = 1;
                 }
             }
             return element.ToString() + "/" + denominator;
@@ -188,20 +188,22 @@ namespace arithmetic2
             int indexesTwo = two.IndexOf("/");
             int elementTwo = int.Parse(two.Substring(0, indexesTwo));
             int denominatorTwo = int.Parse(two.Substring(indexesTwo + 1, two.Length - indexesTwo - 1));
+            //分母相乘
+            denominatorTwo = denominatorTwo * denominatorOne;
+            //如果是乘法，直接用分子乘以分子，分母乘以分母
+            if (symbol == "×")
+            {
+                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo);
+            }
             //假设第一个数第二个数之间的公约数都是对方,计算第一个数分子的倍数
             elementOne = elementOne * denominatorTwo;
             //第二个数分子的倍数
             elementTwo = elementTwo * denominatorOne;
-            //取出分母
-            denominatorTwo = denominatorTwo * denominatorOne;
+           
             //如果是除法
             if (symbol == "÷")
             {
                 return reductionOfFraction((elementOne.ToString() + "/" + elementTwo.ToString()));
-            }
-            if (symbol == "×")
-            {
-                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo);
             }
             //第一个分子与第二个分子的换算
             string strin = consequence(elementOne + symbol + elementTwo);
