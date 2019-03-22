@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 
+
 namespace arithmetic2
 {
     class Program
@@ -17,6 +18,10 @@ namespace arithmetic2
             int num = int.Parse(Console.ReadLine());
             Console.WriteLine("请输入运算范围");
             int scope = int.Parse(Console.ReadLine());
+            //生成题目的类
+            generateTheTitle generateTheTitle = new generateTheTitle();
+            //生成答案的类
+            solve_problems solve_Problems = new solve_problems();
             //利用哈希表进行数据的存储与查重
             Hashtable fourOperations = new Hashtable();
             Console.WriteLine("正在生成题目,请稍等");
@@ -26,8 +31,8 @@ namespace arithmetic2
                     #region 四年级题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        string topic = (topicfour(scope));
-                        string answer = (consequence(topic));
+                        string topic = (generateTheTitle.topicfour(scope));
+                        string answer = (solve_problems.consequence(topic));
                         if (fourOperations.Contains(topic))
                         {
                             i--;
@@ -131,206 +136,8 @@ namespace arithmetic2
             Console.WriteLine("生成完毕");
             Console.ReadKey();
         }
-        //小数转分数
-        public static string FractionalConversion(string decimals)
-        {
-            //因为小数只生成一位小数，所以分母可以确定为2-10，公约数为2/3/5
-            //    int indexes = decimals.IndexOf(".");
-            //    string conv = decimals.Substring(indexes+1, decimals.Length);
-            //    return reductionOfFraction(conv+"/10");
-            //将数*10再进行约分
-            return reductionOfFraction(decimals.Replace(".", "") + "/10");
-        }
-        //分数约分
-        public static string reductionOfFraction(string grade)
-        {
-            int indexes = grade.IndexOf("/");
-            int element = int.Parse(grade.Substring(0, indexes));
-            int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
-            int min = Math.Min(element, denominator);
-            for (int i = 2; i < min; i++)
-            {
-                if (element % i == 0 && denominator % i == 0)
-                {
-                    element = element / i;
-                    denominator = denominator / i;
-                    min = Math.Min(element, denominator);
-                    i = 1;
-                }
-            }
-            return element.ToString() + "/" + denominator;
-        }
-        //无分数结果验算
-        public static string consequence(string equation)
-        {
-            //小数与整数运算           
-            string formula = equation.Replace("÷", "/");
-            formula = formula.Replace("×", "*");
-            formula = formula.Replace("＋", "+");
-            formula = formula.Replace("－", "-");
-            DataTable dt = new DataTable();
-            string really_data = dt.Compute(formula, "false").ToString();
-            return really_data;
-        }
-        //分数的验算
-        public static string fractionalArithmetic(string symbol, string one, string two)
-        {
-            one = one.Replace(" ", "");
-            two = two.Replace(" ", "");
-            //取出第一个数的分子和分母
-            int indexesOne = one.IndexOf("/");
-            int elementOne = int.Parse(one.Substring(0, indexesOne));
-            //int denominatorOne = int.Parse(one.Substring(indexesOne + 1, one.Length-1));
-            int denominatorOne = int.Parse(one.Substring(indexesOne + 1, one.Length - indexesOne - 1));
-            //记录第一个数的分母
-            //int lalal = denominatorOne;
-            //取出第二个数的分子和分母
-            int indexesTwo = two.IndexOf("/");
-            int elementTwo = int.Parse(two.Substring(0, indexesTwo));
-            int denominatorTwo = int.Parse(two.Substring(indexesTwo + 1, two.Length - indexesTwo - 1));
-            //分母相乘
-            denominatorTwo = denominatorTwo * denominatorOne;
-            //如果是乘法，直接用分子乘以分子，分母乘以分母
-            if (symbol == "×")
-            {
-                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo);
-            }
-            //假设第一个数第二个数之间的公约数都是对方,计算第一个数分子的倍数
-            elementOne = elementOne * denominatorTwo;
-            //第二个数分子的倍数
-            elementTwo = elementTwo * denominatorOne;
-           
-            //如果是除法
-            if (symbol == "÷")
-            {
-                return reductionOfFraction((elementOne.ToString() + "/" + elementTwo.ToString()));
-            }
-            //第一个分子与第二个分子的换算
-            string strin = consequence(elementOne + symbol + elementTwo);
-            return reductionOfFraction(strin + "/" + denominatorTwo);
 
-        }
-        //六年级题目的解法
-        public static string solution(string topic)
-        {
-            string[] array = new string[5];
-            int i = 0;
-            foreach (var a in topic)
-            {
-                if (a.ToString() == "＋" || a.ToString() == "－" || a.ToString() == "×" || a.ToString() == "÷")
-                {
-                    i++;
-                    array[i] += a;
-                    i++;
-                }
-                else
-                {
-                    array[i] += a;
-                }
-            }
-            for (int l = 0; l < array.Length; l++)
-            {
-                if (array[l] == "×" || array[l] == "÷")
-                {
-                    if (l == 3)
-                    {
-                        return fractionalArithmetic(array[1], array[0], fractionalArithmetic(array[l], array[l - 1], array[l + 1]));
-                    }
-                }
-            }
-            return fractionalArithmetic(array[3], fractionalArithmetic(array[1], array[0], array[2]), array[4]);
-        }
-        #region 生成题目的逻辑
-        //生成四年级题目
-        public static string topicfour(int scope)
-        {
-            string ret;
-            ret = integer(scope) + " " + operators() + " " + integer(scope) + " " + operators() + " " + integer(scope);
-            return ret;
-        }
-        //生成五年级题目
-        public static string topicfive(int scope)
-        {
-            string ret;
-            ret = decimals(scope) + " " + operators() + " " + decimals(scope) + " " + operators() + " " + decimals(scope);
-            return ret;
-        }
-        //生成六年级题目
-        public static string topicssix(int scope)
-        {
-            string ret;
-            ret = grade(scope) + " " + operators() + " " + grade(scope) + " " + operators() + " " + grade(scope);
-            return ret;
-        }
-        //生成混合题目
-        public static string mixture(int scope)
-        {
-            string ret = "";
-            Random random = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                switch (random.Next(1, 4))
-                {
-                    case 1:
-                        ret += integer(scope);
-                        break;
-                    case 2:
-                        ret += decimals(scope);
-                        break;
-                    case 3:
-                        ret += grade(scope);
-                        break;
-                }
-                if (i != 2)
-                {
-                    ret += operators();
-                }
-            }
-            return ret;
-        }
-        #endregion
-        #region 生成数与符号
-        //随机整数
-        public static string integer(int scope)
-        {
-            Random random = new Random();
-            return random.Next(0, scope).ToString();
-        }
-        //随机小数
-        public static string decimals(int scope)
-        {
-            Random random = new Random();
-            return random.Next(0, scope).ToString() + "." + random.Next(1, 10);
-        }
-        //随机分数
-        public static string grade(int scope)
-        {
-            Random random = new Random();
-            return random.Next(1, scope).ToString() + "/" + random.Next(1, 10);
-        }
-        //随机运算符      
-        public static string operators()
-        {
-            Random random = new Random();
-            switch (random.Next(1, 5))
-            {
-                case 1:
-                    return "＋";
-                case 2:
-                    return "－";
-                case 3:
-                    return "×";
-                case 4:
-                    return "÷";
-            }
-            return "";
-        }
-        //括号
-        public static void bracket()
-        {
 
-        }
-        #endregion
         //分数运算
         public static string operation(string symbol, string num1, string num2)
         {
