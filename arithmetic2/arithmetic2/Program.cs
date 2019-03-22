@@ -53,8 +53,8 @@ namespace arithmetic2
                     #region 五年级题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        string topic = (topicfive(scope));
-                        string answer = (consequence(topic));
+                        string topic = (generateTheTitle.topicfive(scope));
+                        string answer = (solve_problems.consequence(topic));
                         if (fourOperations.Contains(topic))
                         {
                             i--;
@@ -75,15 +75,15 @@ namespace arithmetic2
                     #region 六年级题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        string topic = (topicssix(scope));
-                        string answer = (solution(topic));
-                        answer = reductionOfFraction(answer);
+                        string topic = (generateTheTitle.topicssix(scope));
+                        string answer = (solve_problems.solution(topic));
+                        answer = solve_problems.reductionOfFraction(answer);
                         if (fourOperations.Contains(topic))
                         {
                             i--;
                             break;
                         }
-                        if (Convert.ToDouble(consequence(answer)) > 0)
+                        if (Convert.ToDouble(solve_problems.consequence(answer)) > 0)
                         {
                             fourOperations.Add(topic, answer);
                         }
@@ -98,7 +98,7 @@ namespace arithmetic2
                     #region 混合运算题目
                     for (int i = 0; i < quantity; i++)
                     {
-                        Console.WriteLine(mixture(scope));
+                        //Console.WriteLine(mixture(scope));
                     }
                     #endregion
                     break;

@@ -10,25 +10,25 @@ namespace arithmetic2
     public class NumbersAndSymbols
     {
         //随机整数
-        public string integer(int scope)
+        public static string integer(int scope)
         {
             Random random = new Random();
             return random.Next(0, scope).ToString();
         }
         //随机小数
-        public string decimals(int scope)
+        public static string decimals(int scope)
         {
             Random random = new Random();
             return random.Next(0, scope).ToString() + "." + random.Next(1, 10);
         }
         //随机分数
-        public string grade(int scope)
+        public static string grade(int scope)
         {
             Random random = new Random();
             return random.Next(1, scope).ToString() + "/" + random.Next(1, 10);
         }
         //随机运算符      
-        public string operators()
+        public static string operators()
         {
             Random random = new Random();
             switch (random.Next(1, 5))

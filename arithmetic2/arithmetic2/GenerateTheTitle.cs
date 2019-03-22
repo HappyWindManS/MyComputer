@@ -13,21 +13,21 @@ namespace arithmetic2
         public static string topicfour(int scope)
         {
             string ret;
-            ret = integer(scope) + " " + operators() + " " + integer(scope) + " " + operators() + " " + integer(scope);
+            ret = NumbersAndSymbols.integer(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.integer(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.integer(scope);
             return ret;
         }
         //生成五年级题目
         public string topicfive(int scope)
         {
             string ret;
-            ret = decimals(scope) + " " + operators() + " " + decimals(scope) + " " + operators() + " " + decimals(scope);
+            ret = NumbersAndSymbols.decimals(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.decimals(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.decimals(scope);
             return ret;
         }
         //生成六年级题目
         public string topicssix(int scope)
         {
             string ret;
-            ret = grade(scope) + " " + operators() + " " + grade(scope) + " " + operators() + " " + grade(scope);
+            ret = NumbersAndSymbols.grade(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.grade(scope) + " " + NumbersAndSymbols.operators() + " " + NumbersAndSymbols.grade(scope);
             return ret;
         }
         //生成混合题目
@@ -40,18 +40,18 @@ namespace arithmetic2
                 switch (random.Next(1, 4))
                 {
                     case 1:
-                        ret += integer(scope);
+                        ret += NumbersAndSymbols.integer(scope);
                         break;
                     case 2:
-                        ret += decimals(scope);
+                        ret += NumbersAndSymbols.decimals(scope);
                         break;
                     case 3:
-                        ret += grade(scope);
+                        ret += NumbersAndSymbols.grade(scope);
                         break;
                 }
                 if (i != 2)
                 {
-                    ret += operators();
+                    ret += NumbersAndSymbols.operators();
                 }
             }
             return ret;
