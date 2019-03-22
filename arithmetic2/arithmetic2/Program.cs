@@ -136,13 +136,6 @@ namespace arithmetic2
             Console.WriteLine("生成完毕");
             Console.ReadKey();
         }
-
-
-        //分数运算
-        public static string operation(string symbol, string num1, string num2)
-        {
-
-            return "";
-        }
+  
     }
 }
