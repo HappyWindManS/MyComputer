@@ -8,17 +8,28 @@ namespace CalculationModuleUWP
 {
     public class CalculationLogic
     {
-        //小数转分数
+        //待测试
+        /// <summary>
+        /// 小数转分数
+        /// </summary>
+        /// <param name="decimals"></param>
+        /// <returns></returns>
         public static string FractionalConversion(string decimals)
         {
-            //因为小数只生成一位小数，所以分母可以确定为2-10，公约数为2/3/5
-            //    int indexes = decimals.IndexOf(".");
-            //    string conv = decimals.Substring(indexes+1, decimals.Length);
-            //    return reductionOfFraction(conv+"/10");
-            //将数*10再进行约分
-            return reductionOfFraction(decimals.Replace(".", "") + "/10");
+            int num = decimals.IndexOf(".");
+            int length= decimals.Length;
+            int denominator = 10;
+            for (int i=0;i<length-num;i++)
+            {
+                denominator = denominator * 10;
+            }
+            return reductionOfFraction(decimals.Replace(".", "") + "/"+denominator.ToString());
         }
-        //分数约分
+        /// <summary>
+        /// 分数约分
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
         internal static string reductionOfFraction(string grade)
         {
             int indexes = grade.IndexOf("/");
@@ -37,7 +48,13 @@ namespace CalculationModuleUWP
             }
             return element.ToString() + "/" + denominator;
         }
-        //分数的换算
+        /// <summary>
+        /// 分数的换算
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="one"></param>
+        /// <param name="two"></param>
+        /// <returns></returns>
         internal static string fractionalArithmetic(string symbol, string one, string two)
         {
             one = one.Replace(" ", "");
@@ -58,7 +75,7 @@ namespace CalculationModuleUWP
             //如果是乘法，直接用分子乘以分子，分母乘以分母
             if (symbol == "×")
             {
-                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo);
+                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo.ToString());
             }
             //假设第一个数第二个数之间的公约数都是对方,计算第一个数分子的倍数
             elementOne = elementOne * denominatorTwo;
@@ -71,12 +88,33 @@ namespace CalculationModuleUWP
                 return reductionOfFraction((elementOne.ToString() + "/" + elementTwo.ToString()));
             }
             //第一个分子与第二个分子的换算
-            string strin = consequence(symbol + elementOne + elementTwo);
+            string strin = consequence(symbol,elementOne,elementTwo);
             return reductionOfFraction(strin + "/" + denominatorTwo);
         }
-
         /// <summary>
-        /// 逆波兰式主体
+        /// 最基础的加减乘除的方法
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="one"></param>
+        /// <param name="two"></param>
+        /// <returns></returns>
+        private static string consequence(string symbol,int one,int two)
+        {
+            switch(symbol)
+            {
+                case "＋":
+                    return (one + two).ToString();
+                case "－":
+                    return (one - two).ToString();
+                case "×":
+                    return (one * two).ToString();
+                case "÷":
+                    return (one / two).ToString();
+            }
+            return "";
+        }
+        /// <summary>
+        /// 逆波兰式
         /// </summary>
         internal static string ReversePolishType(string strEquation)
         {
@@ -211,7 +249,6 @@ namespace CalculationModuleUWP
                 return;
             }
         }
-
         //无分数结果验算
         //public static string consequence(string equation)
         //{
