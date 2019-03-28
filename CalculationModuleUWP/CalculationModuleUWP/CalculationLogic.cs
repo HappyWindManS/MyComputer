@@ -14,7 +14,7 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        public static string FractionalConversion(string decimals)
+        internal static string FractionalConversion(string decimals)
         {
             int num = decimals.IndexOf(".");
             int length= decimals.Length;
@@ -118,56 +118,8 @@ namespace CalculationModuleUWP
         /// </summary>
         internal static string ReversePolishType(string strEquation)
         {
-            Stack<string> opStack = new Stack<string>();
-            opStack.Push("#");
-            Stack<string> numStack = new Stack<string>();
-            for (int i = 0; i < strEquation.Length;)
-            {
-                int opNum = GetOperationLevel(strEquation[i].ToString());
-                if (opNum == 0)
-                {
-                    int index = GetCompleteValue(strEquation.Substring(i, strEquation.Length - i));
-                    numStack.Push(strEquation.Substring(i, index));
-                    i = (i + index);
-                }//为操作数，获取完整
-                else
-                {
-                    if (strEquation[i] == '(')
-                    {
-                        opStack.Push(strEquation[i].ToString());
-                    }
-                    else if (strEquation[i] == ')')
-                    {
-                        MoveOperator(opStack, numStack);
-                    }
-                    else
-                    {
-                        if (opStack.Peek() == "(")
-                        {
-                            opStack.Push(strEquation[i].ToString());
-                        }
-                        else
-                        {
-                            JudgeOperator(opStack, numStack, strEquation[i].ToString());
-                        }
-                    }
-                    i++;
-                }
-            }
-            if (opStack.Count != 0)
-            {
-                while (opStack.Count != 0 && opStack.Peek() != "#")
-                {
-                    numStack.Push(opStack.Pop());
-                }
-            }
-
-            StringBuilder strBuild = new StringBuilder();
-            foreach (string s in numStack)
-            {
-                strBuild.Insert(0, s);
-            }
-            return strBuild.ToString();
+          
+            
         }
         /// <summary>
         /// 获取运算符等级
