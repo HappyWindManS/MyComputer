@@ -98,7 +98,7 @@ namespace CalculationModuleUWP
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        private static string consequence(string symbol,int one,int two)
+        private static string consequence(string symbol,object one,object two)
         {
             switch(symbol)
             {
@@ -118,8 +118,54 @@ namespace CalculationModuleUWP
         /// </summary>
         internal static string ReversePolishType(string strEquation)
         {
-          
+            Stack<object> stacknum = new Stack<object>();
+            stacknum.Push("#");
+            Stack<string> stacksymbol = new Stack<string>();
+            while(strEquation.Length!=0)
+            {
+                int length = Evaluation(strEquation);
+                if (length != 1)
+                {
+                    stacknum.Push(Convert.ToDouble(strEquation.Substring(0, length)));
+                }
+                else if(GetOperationLevel(strEquation.Substring(0,length))>
+                    GetOperationLevel(stacksymbol.Peek()))
+                {
+                    stacksymbol.Push(strEquation.Substring(0, length));
+                }
+                else
+                {
+                    var one = stacknum.Pop();
+                    var two = stacknum.Pop();
+                    stacknum.Push(consequence(stacksymbol.Pop(), one, two));
+                    stacksymbol.Push(strEquation.Substring(0, length));
+                }
+                strEquation = strEquation.Substring(0, length);
+            }
+            return stacknum.Pop().ToString();
+        }
+        /// <summary>
+        /// 取出操作数或运算符
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        private static int Evaluation(string topic)
+        {
+            if(topic.Substring(0,1)!= "＋"|| topic.Substring(0, 1) != "－" 
+                || topic.Substring(0, 1) != "×" || topic.Substring(0, 1) != "÷" )
+            {
+                int[] min=new int[4];
+                min[0] = topic.IndexOf("＋");
+                min[1] = topic.IndexOf("－");
+                min[2] = topic.IndexOf("×");
+                min[3] = topic.IndexOf("÷");
+                return min.Min();
+            }
             
+            else
+            {
+                return 1;
+            }
         }
         /// <summary>
         /// 获取运算符等级
@@ -130,10 +176,10 @@ namespace CalculationModuleUWP
         {
             switch (c)
             {
-                case "+": return 1;
-                case "-": return 1;
-                case "*": return 2;
-                case "/": return 2;
+                case "＋": return 1;
+                case "－": return 1;
+                case "×": return 2;
+                case "÷": return 2;
                 case "#": return -1;
                 case "(": return -1;
                 case ")": return -1;

@@ -46,12 +46,56 @@ namespace CalculationModuleUWP
             return equation;
         }
         /// <summary>
-        /// 五年级的题目
+        /// 五年级
         /// </summary>
         /// <returns></returns>
         internal static string FiveGrade()
         {
-            
+            Random random = new Random();
+            if(random.Next(1,3)==1)
+            {
+                return RandomSymbols.Decimals(1, 100, 1, 100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Integer(1, 100);
+            }
+            if (random.Next(1, 3) == 2)
+            {
+                return RandomSymbols.Integer(1, 100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Decimals(1, 100, 1, 100);
+            }
+
+            return RandomSymbols.Decimals(1,100,1,100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Decimals(1, 100, 1, 100);
+        }
+        /// <summary>
+        /// 六年级
+        /// </summary>
+        /// <returns></returns>
+        internal static string SixGrade()
+        {
+            Random random = new Random();
+            string ret = RandomDigit(0,3);
+            for(int i=0;i<random.Next(3,5);i++)
+            {
+                ret += RandomSymbols.Operators(1,5) + RandomDigit(0, 3);
+            }
+            return ret;
+        }
+        /// <summary>
+        /// 随机题目
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        internal static string RandomDigit(int min,int max)
+        {
+            Random random = new Random();
+            switch(random.Next(min,max))
+            {
+                case 0:
+                    return RandomSymbols.Integer(0, 10000);
+                case 1:
+                    return RandomSymbols.Decimals(0, 100, 0, 100);
+                case 2:
+                    return RandomSymbols.Grade(0, 100, 0, 100);
+            }
+            return "";
         }
     }
 }
