@@ -9,6 +9,8 @@ namespace CalculationModuleUWP
     public class CalculationLogic
     {
         //待测试
+
+
         /// <summary>
         /// 小数转分数
         /// </summary>
@@ -98,7 +100,7 @@ namespace CalculationModuleUWP
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        private static string consequence(string symbol,object one,object two)
+        private static string consequence(string symbol,double one,double two)
         {
             switch(symbol)
             {
@@ -137,7 +139,7 @@ namespace CalculationModuleUWP
                 {
                     var one = stacknum.Pop();
                     var two = stacknum.Pop();
-                    stacknum.Push(consequence(stacksymbol.Pop(), one, two));
+                    stacknum.Push(consequence(stacksymbol.Pop(),Convert.ToDouble(one),Convert.ToDouble(two)));
                     stacksymbol.Push(strEquation.Substring(0, length));
                 }
                 strEquation = strEquation.Substring(0, length);
