@@ -9,8 +9,6 @@ namespace CalculationModuleUWP
     public class CalculationLogic
     {
         //待测试
-
-
         /// <summary>
         /// 小数转分数
         /// </summary>
@@ -19,8 +17,8 @@ namespace CalculationModuleUWP
         internal static string FractionalConversion(string decimals)
         {
             int num = decimals.IndexOf(".");
-            int length= decimals.Length;
-            int denominator = 10;
+            int length= decimals.Length-1;
+            int denominator = 1;
             for (int i=0;i<length-num;i++)
             {
                 denominator = denominator * 10;
@@ -83,7 +81,6 @@ namespace CalculationModuleUWP
             elementOne = elementOne * denominatorTwo;
             //第二个数分子的倍数
             elementTwo = elementTwo * denominatorOne;
-
             //如果是除法
             if (symbol == "÷")
             {
