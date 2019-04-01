@@ -144,7 +144,7 @@ namespace CalculationModuleUWP
             return stacknum.Pop().ToString();
         }
         /// <summary>
-        /// 取出操作数或运算符
+        /// 取出操作数或运算符的索引
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
@@ -159,8 +159,7 @@ namespace CalculationModuleUWP
                 min[2] = topic.IndexOf("×");
                 min[3] = topic.IndexOf("÷");
                 return min.Min();
-            }
-            
+            }        
             else
             {
                 return 1;
@@ -185,67 +184,67 @@ namespace CalculationModuleUWP
                 default: return 0;
             }
         }
-        /// <summary>
-        /// 获取完整数值
-        /// </summary>
-        /// <param name="formula">公式</param>
-        /// <returns></returns>
-        private static int GetCompleteValue(string formula)
-        {
-            int index = formula.Length;
-            for (int i = 0; i < formula.Length; i++)
-            {
-                int num = GetOperationLevel(formula[i].ToString());
-                if (num != 0)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        }
-        /// <summary>
-        /// 移动运算符
-        /// </summary>
-        /// <param name="opStack"></param>
-        /// <param name="numStack"></param>
-        private static void MoveOperator(Stack<string> opStack, Stack<string> numStack)
-        {
-            string s = opStack.Pop();
-            if (s == "(")
-            {
-                return;
-            }
-            else
-            {
-                numStack.Push(s);
-                MoveOperator(opStack, numStack);
-                return;
-            }
-        }
-        /// <summary>
-        /// 判断运算符
-        /// </summary>
-        /// <param name="opStack"></param>
-        /// <param name="numStack"></param>
-        /// <param name="x"></param>
-        private static void JudgeOperator(Stack<string> opStack, Stack<string> numStack, string x)
-        {
-            int xNum = GetOperationLevel(x);
-            int opNum = GetOperationLevel(opStack.Peek());
-            if (xNum > opNum || numStack.Peek() == "(")
-            {
-                opStack.Push(x);
-                return;
-            }
-            else
-            {
-                string opStr = opStack.Pop();
-                numStack.Push(opStr);
-                JudgeOperator(opStack, numStack, x);
-                return;
-            }
-        }
+        ///// <summary>
+        ///// 获取完整数值
+        ///// </summary>
+        ///// <param name="formula">公式</param>
+        ///// <returns></returns>
+        //private static int GetCompleteValue(string formula)
+        //{
+        //    int index = formula.Length;
+        //    for (int i = 0; i < formula.Length; i++)
+        //    {
+        //        int num = GetOperationLevel(formula[i].ToString());
+        //        if (num != 0)
+        //        {
+        //            index = i;
+        //            break;
+        //        }
+        //    }
+        //    return index;
+        //}
+        ///// <summary>
+        ///// 移动运算符
+        ///// </summary>
+        ///// <param name="opStack"></param>
+        ///// <param name="numStack"></param>
+        //private static void MoveOperator(Stack<string> opStack, Stack<string> numStack)
+        //{
+        //    string s = opStack.Pop();
+        //    if (s == "(")
+        //    {
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        numStack.Push(s);
+        //        MoveOperator(opStack, numStack);
+        //        return;
+        //    }
+        //}
+        ///// <summary>
+        ///// 判断运算符
+        ///// </summary>
+        ///// <param name="opStack"></param>
+        ///// <param name="numStack"></param>
+        ///// <param name="x"></param>
+        //private static void JudgeOperator(Stack<string> opStack, Stack<string> numStack, string x)
+        //{
+        //    int xNum = GetOperationLevel(x);
+        //    int opNum = GetOperationLevel(opStack.Peek());
+        //    if (xNum > opNum || numStack.Peek() == "(")
+        //    {
+        //        opStack.Push(x);
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        string opStr = opStack.Pop();
+        //        numStack.Push(opStr);
+        //        JudgeOperator(opStack, numStack, x);
+        //        return;
+        //    }
+        //}
         //无分数结果验算
         //public static string consequence(string equation)
         //{
