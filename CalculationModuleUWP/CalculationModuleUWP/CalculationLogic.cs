@@ -14,7 +14,7 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        internal static string FractionalConversion(string decimals)
+        public static string FractionalConversion(string decimals)
         {
             int num = decimals.IndexOf(".");
             int length= decimals.Length-1;
@@ -30,7 +30,7 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name="grade"></param>
         /// <returns></returns>
-        internal static string reductionOfFraction(string grade)
+        public static string reductionOfFraction(string grade)
         {
             int indexes = grade.IndexOf("/");
             int element = int.Parse(grade.Substring(0, indexes));
@@ -55,7 +55,7 @@ namespace CalculationModuleUWP
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        internal static string fractionalArithmetic(string symbol, string one, string two)
+        public static string fractionalArithmetic(string symbol, string one, string two)
         {
             one = one.Replace(" ", "");
             two = two.Replace(" ", "");
@@ -97,7 +97,7 @@ namespace CalculationModuleUWP
         /// <param name="one"></param>
         /// <param name="two"></param>
         /// <returns></returns>
-        private static string consequence(string symbol,double one,double two)
+        public static string consequence(string symbol,double one,double two)
         {
             switch(symbol)
             {
@@ -115,31 +115,44 @@ namespace CalculationModuleUWP
         /// <summary>
         /// 逆波兰式
         /// </summary>
-        internal static string ReversePolishType(string strEquation)
+        public static string ReversePolishType(string strEquation)
         {
-            Stack<object> stacknum = new Stack<object>();
-            stacknum.Push("#");
+            Stack<object> stacknum = new Stack<object>();      
             Stack<string> stacksymbol = new Stack<string>();
-            while(strEquation.Length!=0)
+            stacksymbol.Push("#");
+            while (strEquation.Length!=0)
             {
                 int length = Evaluation(strEquation);
-                if (length != 1)
+                if (length == 99)
+                {
+                    stacknum.Push(Convert.ToDouble(strEquation.Substring(0,strEquation.Length)));
+                    while (stacknum.Count!=1)
+                    {
+                        var one = stacknum.Pop();
+                        var two = stacknum.Pop();
+                        stacknum.Push(consequence(stacksymbol.Pop(), Convert.ToDouble(two), Convert.ToDouble(one)));
+                    }
+                    return stacknum.Peek().ToString();
+                }
+                if (length != 0)
                 {
                     stacknum.Push(Convert.ToDouble(strEquation.Substring(0, length)));
+                    strEquation = strEquation.Substring(length, strEquation.Length - length);
                 }
-                else if(GetOperationLevel(strEquation.Substring(0,length))>
+                else if(GetOperationLevel(strEquation.Substring(0,1))>
                     GetOperationLevel(stacksymbol.Peek()))
                 {
-                    stacksymbol.Push(strEquation.Substring(0, length));
+                    stacksymbol.Push(strEquation.Substring(0, 1));
+                    strEquation = strEquation.Substring(1, strEquation.Length - 1);
                 }
                 else
                 {
                     var one = stacknum.Pop();
                     var two = stacknum.Pop();
-                    stacknum.Push(consequence(stacksymbol.Pop(),Convert.ToDouble(one),Convert.ToDouble(two)));
-                    stacksymbol.Push(strEquation.Substring(0, length));
-                }
-                strEquation = strEquation.Substring(0, length);
+                    stacknum.Push(consequence(stacksymbol.Pop(),Convert.ToDouble(two),Convert.ToDouble(one)));
+                    stacksymbol.Push(strEquation.Substring(0, 1));
+                    strEquation = strEquation.Substring(1, strEquation.Length - 1);
+                }          
             }
             return stacknum.Pop().ToString();
         }
@@ -148,21 +161,28 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        private static int Evaluation(string topic)
+        public static int Evaluation(string topic)
         {
-            if(topic.Substring(0,1)!= "＋"|| topic.Substring(0, 1) != "－" 
-                || topic.Substring(0, 1) != "×" || topic.Substring(0, 1) != "÷" )
+            if(topic.Substring(0,1)!= "＋"&& topic.Substring(0, 1) != "－" 
+                && topic.Substring(0, 1) != "×" && topic.Substring(0, 1) != "÷" )
             {
                 int[] min=new int[4];
                 min[0] = topic.IndexOf("＋");
                 min[1] = topic.IndexOf("－");
                 min[2] = topic.IndexOf("×");
                 min[3] = topic.IndexOf("÷");
+                for(int i=0; i < min.Length ;i++)
+                {
+                    if(min[i]<0)
+                    {
+                        min[i] = min[i] + 100;
+                    }
+                }
                 return min.Min();
             }        
             else
             {
-                return 1;
+                return 0;
             }
         }
         /// <summary>
@@ -170,7 +190,7 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name="c">当前字符</param>
         /// <returns></returns>
-        private static int GetOperationLevel(string c)
+        public static int GetOperationLevel(string c)
         {
             switch (c)
             {

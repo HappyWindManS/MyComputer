@@ -11,7 +11,7 @@ namespace CalculationModuleUWP
         /// <summary>
         /// 一年级
         /// </summary>
-        internal static string FirstGrade()
+        public static string FirstGrade()
         {
             return RandomSymbols.Integer(0, 20) + RandomSymbols.Operators(1, 3) + RandomSymbols.Integer(0, 20);
         }
@@ -19,7 +19,7 @@ namespace CalculationModuleUWP
         /// 二年级
         /// </summary>
         /// <returns></returns>
-        internal static string SecondGrade()
+        public static string SecondGrade()
         {
             return RandomSymbols.Integer(10, 100) + RandomSymbols.Operators(1,3) + RandomSymbols.Integer(10, 100);
 
@@ -28,7 +28,7 @@ namespace CalculationModuleUWP
         /// 三年级
         /// </summary>
         /// <returns></returns>
-        internal static string ThreeGrade()
+        public static string ThreeGrade()
         {
             return RandomSymbols.Integer(10, 100) + RandomSymbols.Operators(3, 5) + RandomSymbols.Integer(10, 100);
         }
@@ -36,7 +36,7 @@ namespace CalculationModuleUWP
         /// 四年级
         /// </summary>
         /// <returns></returns>
-        internal static string FourGrade()
+        public static string FourGrade()
         {
             string equation = RandomSymbols.Integer(1, 1000);
             for (int i=0;i<2;i++)
@@ -49,7 +49,7 @@ namespace CalculationModuleUWP
         /// 五年级
         /// </summary>
         /// <returns></returns>
-        internal static string FiveGrade()
+        public static string FiveGrade()
         {
             Random random = new Random();
             if(random.Next(1,3)==1)
@@ -67,7 +67,7 @@ namespace CalculationModuleUWP
         /// 六年级
         /// </summary>
         /// <returns></returns>
-        internal static string SixGrade()
+        public static string SixGrade()
         {
             Random random = new Random();
             string ret = RandomDigit(0,3);
@@ -83,7 +83,7 @@ namespace CalculationModuleUWP
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        internal static string RandomDigit(int min,int max)
+        public static string RandomDigit(int min,int max)
         {
             Random random = new Random();
             switch(random.Next(min,max))
