@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace CalculationModuleUWP
 {
     internal class RandomSymbols
-    { 
+    {
+        internal static Random random = new Random();
         /// <summary>
         /// 随机整数
         /// </summary>
@@ -16,7 +17,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         internal static string Integer(int min,int max)
         {
-            Random random = new Random();
             return random.Next(min, max).ToString();
         }
         /// <summary>
@@ -29,7 +29,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         internal static string Decimals(int min1,int max1,int min2,int max2)
         {
-            Random random = new Random();
             return random.Next(min1, max1).ToString() + "." + random.Next(min2, max2);
         }
         /// <summary>
@@ -42,7 +41,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         internal static string Grade(int min1,int max1,int min2,int max2)
         {
-            Random random = new Random();
             return random.Next(min1, max1).ToString() + "/" + random.Next(min2, max2);
         }
         /// <summary>
@@ -53,7 +51,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         internal static string Operators(int min,int max)
         {
-            Random random = new Random();
             switch (random.Next(min, max))
             {
                 case 1:

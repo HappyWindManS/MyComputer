@@ -21,6 +21,10 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         public static string FractionalConversion(string decimals)
         {
+            if(decimals.Contains("/"))
+            {
+                return decimals;
+            }
             int num = decimals.IndexOf(".");
             int length= decimals.Length-1;
             int denominator = 1;
@@ -53,6 +57,17 @@ namespace CalculationModuleUWP
             }
             return element.ToString() + "/" + denominator;
         }
+        public static string branch(string grade)
+        {
+            if(grade.Contains("/"))
+            {
+                return ScoreReversePolishType(grade);
+            }
+            else
+            {
+                return ReversePolishType(grade);
+            }
+        }
         /// <summary>
         /// 分数的换算
         /// </summary>
@@ -74,9 +89,7 @@ namespace CalculationModuleUWP
             //取出第二个数的分子和分母
             int indexesTwo = two.IndexOf("/");
             int elementTwo = int.Parse(two.Substring(0, indexesTwo));
-            int denominatorTwo = int.Parse(two.Substring(indexesTwo + 1, two.Length - indexesTwo - 1));
-            //分母相乘
-            denominatorTwo = denominatorTwo * denominatorOne;
+            int denominatorTwo = int.Parse(two.Substring(indexesTwo + 1, two.Length - indexesTwo - 1));      
             //如果是乘法，直接用分子乘以分子，分母乘以分母
             if (symbol == "×")
             {
@@ -86,6 +99,8 @@ namespace CalculationModuleUWP
             elementOne = elementOne * denominatorTwo;
             //第二个数分子的倍数
             elementTwo = elementTwo * denominatorOne;
+            //分母相乘
+            denominatorTwo = denominatorTwo * denominatorOne;
             //如果是除法
             if (symbol == "÷")
             {
@@ -158,6 +173,52 @@ namespace CalculationModuleUWP
                     stacksymbol.Push(strEquation.Substring(0, 1));
                     strEquation = strEquation.Substring(1, strEquation.Length - 1);
                 }          
+            }
+            return stacknum.Pop().ToString();
+        }
+        /// <summary>
+        /// 分数逆波兰
+        /// </summary>
+        /// <param name="strEquation"></param>
+        /// <returns></returns>
+        public static string ScoreReversePolishType(string strEquation)
+        {
+            Stack<object> stacknum = new Stack<object>();
+            Stack<string> stacksymbol = new Stack<string>();
+            stacksymbol.Push("#");
+            while (strEquation.Length != 0)
+            {
+                int length = Evaluation(strEquation);
+                if (length == 99)
+                {
+                    stacknum.Push(FractionalConversion(strEquation.Substring(0, strEquation.Length)));
+                    while (stacknum.Count != 1)
+                    {
+                        var one = stacknum.Pop();
+                        var two = stacknum.Pop();
+                        stacknum.Push(fractionalArithmetic(stacksymbol.Pop(),two.ToString(), one.ToString()));
+                    }
+                    return stacknum.Peek().ToString();
+                }
+                if (length != 0)
+                {
+                    stacknum.Push(FractionalConversion(strEquation.Substring(0, length)));
+                    strEquation = strEquation.Substring(length, strEquation.Length - length);
+                }
+                else if (GetOperationLevel(strEquation.Substring(0, 1)) >
+                    GetOperationLevel(stacksymbol.Peek()))
+                {
+                    stacksymbol.Push(strEquation.Substring(0, 1));
+                    strEquation = strEquation.Substring(1, strEquation.Length - 1);
+                }
+                else
+                {
+                    var one = stacknum.Pop();
+                    var two = stacknum.Pop();
+                    stacknum.Push(fractionalArithmetic(stacksymbol.Pop(), two.ToString(), one.ToString()));
+                    stacksymbol.Push(strEquation.Substring(0, 1));
+                    strEquation = strEquation.Substring(1, strEquation.Length - 1);
+                }
             }
             return stacknum.Pop().ToString();
         }
