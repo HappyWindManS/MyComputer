@@ -18,10 +18,19 @@ namespace size1test
             port port = new port();
             Hashtable hashtable = new Hashtable();
             hashtable = port.ProblemGeneration("20", "六年级");
+            int i = 1;
             foreach (var a in hashtable.Keys)
             {
-                Console.WriteLine(a);
+                Console.WriteLine(i + ". " + a);
+                i++;
             }
+            i = 1;
+            foreach (var a in hashtable.Values)
+            {
+                Console.WriteLine(i + ". " + a);
+                i++;
+            }
+            //Console.WriteLine(CalculationLogic.ScoreReversePolishType("1/4＋1/2÷4/7×4－7/2－1"));
             Console.ReadKey();
         }
     }

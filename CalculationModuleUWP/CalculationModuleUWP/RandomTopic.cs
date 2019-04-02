@@ -71,7 +71,7 @@ namespace CalculationModuleUWP
         public static string SixGrade()
         {
             string ret = RandomDigit(0,3);
-            for(int i=0;i<random.Next(3,6);i++)
+            for(int i=0;i<random.Next(2,4);i++)
             {
                 ret += RandomSymbols.Operators(1,5) + RandomDigit(0, 3);
             }
@@ -88,11 +88,11 @@ namespace CalculationModuleUWP
             switch(random.Next(min,max))
             {
                 case 0:
-                    return RandomSymbols.Integer(0, 10000);
+                    return RandomSymbols.Integer(1, 100);
                 case 1:
-                    return RandomSymbols.Decimals(0, 100, 0, 100);
+                    return RandomSymbols.Decimals(0, 10, 1, 10);
                 case 2:
-                    return RandomSymbols.Grade(0, 100, 0, 100);
+                    return RandomSymbols.Grade(1, 10, 2, 10);
             }
             return "";
         }

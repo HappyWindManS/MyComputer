@@ -23,16 +23,27 @@ namespace CalculationModuleUWP
         {
             if(decimals.Contains("/"))
             {
-                return decimals;
+                return reductionOfFraction(decimals);
             }
-            int num = decimals.IndexOf(".");
-            int length= decimals.Length-1;
-            int denominator = 1;
-            for (int i=0;i<length-num;i++)
+            if (decimals.Contains("."))
             {
-                denominator = denominator * 10;
+                int num = decimals.IndexOf(".");
+                int length = decimals.Length - 1;
+                int denominator = 1;
+                if (decimals.Length - num > 3)
+                {
+                    decimals = decimals.Substring(0, num + 2);
+                }
+                for (int i = 0; i < length - num; i++)
+                {
+                    denominator = denominator * 10;
+                }
+                return reductionOfFraction(decimals.Replace(".", "") + "/" + denominator.ToString());
             }
-            return reductionOfFraction(decimals.Replace(".", "") + "/"+denominator.ToString());
+            else
+            {
+                return decimals + "/1";
+            }
         }
         /// <summary>
         /// 分数约分
@@ -41,27 +52,75 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         public static string reductionOfFraction(string grade)
         {
-            int indexes = grade.IndexOf("/");
-            int element = int.Parse(grade.Substring(0, indexes));
-            int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
-            int min = Math.Min(element, denominator);
-            for (int i = 2; i < min; i++)
+            try
             {
-                if (element % i == 0 && denominator % i == 0)
+                int indexes = grade.IndexOf("/");
+                int element = int.Parse(grade.Substring(0, indexes));
+                int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
+                int min = Math.Min(element, denominator);
+                for (int i = 1; i < min + 1; i++)
                 {
-                    element = element / i;
-                    denominator = denominator / i;
-                    min = Math.Min(element, denominator);
-                    i = 1;
+                    if (element % i == 0 && denominator % i == 0)
+                    {
+                        element = element / i;
+                        denominator = denominator / i;
+                        min = Math.Min(element, denominator);
+                        i = 1;
+                    }
+                }
+                return element.ToString() + "/" + denominator;
+            }
+            catch
+            {
+                return "超出";
+            }
+        }
+        /// <summary>
+        /// 转化真分数
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
+        public static string ProperFraction(string grade)
+        {
+            int indexes = grade.IndexOf("/");
+            int element = Math.Abs(int.Parse(grade.Substring(0, indexes)));
+            int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
+            if (denominator == 1)
+            {
+                return grade.Substring(0, indexes);
+            }
+            if (element>denominator)
+            {
+                int i = 0;
+                while(element>denominator)
+                {
+                    element = element - denominator;
+                    i++;
+                }
+                if (grade.Substring(0, 1) == "－")
+                {
+                    return "－" + i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString();
+                }
+                else
+                {
+                    return i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString(); 
                 }
             }
-            return element.ToString() + "/" + denominator;
+            else
+            {
+                return grade;
+            }
         }
+        /// <summary>
+        /// 修改逻辑
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
         public static string branch(string grade)
         {
             if(grade.Contains("/"))
             {
-                return ScoreReversePolishType(grade);
+                return ProperFraction(ScoreReversePolishType(grade));
             }
             else
             {
@@ -93,7 +152,7 @@ namespace CalculationModuleUWP
             //如果是乘法，直接用分子乘以分子，分母乘以分母
             if (symbol == "×")
             {
-                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + denominatorTwo.ToString());
+                return reductionOfFraction((elementOne * elementTwo).ToString() + "/" + (denominatorTwo*denominatorOne).ToString());
             }
             //假设第一个数第二个数之间的公约数都是对方,计算第一个数分子的倍数
             elementOne = elementOne * denominatorTwo;
@@ -215,9 +274,7 @@ namespace CalculationModuleUWP
                 {
                     var one = stacknum.Pop();
                     var two = stacknum.Pop();
-                    stacknum.Push(reductionOfFraction(fractionalArithmetic(stacksymbol.Pop(), two.ToString(), one.ToString())));
-                    stacksymbol.Push(strEquation.Substring(0, 1));
-                    strEquation = strEquation.Substring(1, strEquation.Length - 1);
+                    stacknum.Push(reductionOfFraction(fractionalArithmetic(stacksymbol.Pop(), two.ToString(), one.ToString())));                 
                 }
             }
             return stacknum.Pop().ToString();
