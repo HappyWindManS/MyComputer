@@ -5,15 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 namespace CalculationModuleUWP
 {
     public class CalculationLogic
     {
-        /// <summary>
-        /// 暂存的哈希表
-        /// </summary>
-        private static Hashtable titlehash = new Hashtable();
         //待测试
         /// <summary>
         /// 小数转分数
@@ -211,38 +210,65 @@ namespace CalculationModuleUWP
             }
         }
         /// <summary>
+        /// 保存答案生成TXT，可选择路径
+        /// </summary>
+        /// <param name="strtxt">保存的文本</param>
+        /// <param name="filename">文件名</param>
+        public async void SaveTxt(string strtxt, string filename)
+        {
+            FileSavePicker fp = new FileSavePicker();
+            var filedb = new[] { ".txt" };
+            fp.FileTypeChoices.Add(".txt", filedb);
+            //fp.SuggestedFileName = "Answer " + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+            fp.SuggestedFileName = filename;
+            StorageFile sf = await fp.PickSaveFileAsync();
+            if (sf != null)
+            {
+                using (StorageStreamTransaction transaction = await sf.OpenTransactedWriteAsync())
+                {
+                    using (DataWriter dataWriter = new DataWriter(transaction.Stream))
+                    {
+                        dataWriter.WriteString(strtxt);
+                        transaction.Stream.Size = await dataWriter.StoreAsync();
+                        await transaction.CommitAsync();
+                    }
+                }
+            }
+        }
+        /// <summary>
         /// 生成题目
         /// </summary>
-        public static void GenerateTitle()
-        {
-            FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
-            //答案的TXT
-            FileStream da = new FileStream("D:\\四则运算的答案.txt", FileMode.Create);
-            int plus = 1;
-            foreach (string a in titlehash.Keys)
-            {
-                //获得字节数组
-                byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题." + a + " =" + "\r\n");
-                //开始写入
-                fs.Write(data, 0, data.Length);
-                plus++;
-            }
-            //清空缓冲区、关闭流
-            fs.Flush();
-            fs.Close();
-            plus = 1;
-            foreach (string b in titlehash.Values)
-            {
-                //获得字节数组
-                byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题:" + b + "\r\n");
-                //开始写入
-                da.Write(data, 0, data.Length);
-                plus++;
-            }
-            //清空缓冲区、关闭流
-            da.Flush();
-            da.Close();
-        }
+        //public static void GenerateTitle()
+
+        //{
+        //    FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
+        //    //答案的TXT
+        //    FileStream da = new FileStream("D:\\四则运算的答案.txt", FileMode.Create);
+        //    int plus = 1;
+        //    foreach (string a in titlehash.Keys)
+        //    {
+        //        //获得字节数组
+        //        byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题." + a + " =" + "\r\n");
+        //        //开始写入
+        //        fs.Write(data, 0, data.Length);
+        //        plus++;
+        //    }
+        //    //清空缓冲区、关闭流
+        //    fs.Flush();
+        //    fs.Close();
+        //    plus = 1;
+        //    foreach (string b in titlehash.Values)
+        //    {
+        //        //获得字节数组
+        //        byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题:" + b + "\r\n");
+        //        //开始写入
+        //        da.Write(data, 0, data.Length);
+        //        plus++;
+        //    }
+        //    //清空缓冲区、关闭流
+        //    da.Flush();
+        //    da.Close();
+        //}
         ///// <summary>
         ///// 获取完整数值
         ///// </summary>

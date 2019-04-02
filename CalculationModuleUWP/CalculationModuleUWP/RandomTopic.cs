@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalculationModuleUWP
 {
-    internal class RandomTopic
+    public class RandomTopic
     {
         /// <summary>
         /// 一年级
@@ -39,9 +39,9 @@ namespace CalculationModuleUWP
         public static string FourGrade()
         {
             string equation = RandomSymbols.Integer(1, 1000);
-            for (int i=0;i<2;i++)
+            for (int i=0;i<3;i++)
             {
-                equation += RandomSymbols.Operators(1, 5) + RandomSymbols.Integer(1, 1000) + RandomSymbols.Operators(1, 5);
+                equation += RandomSymbols.Operators(1, 5) + RandomSymbols.Integer(1, 1000) ;
             }
             return equation;
         }
