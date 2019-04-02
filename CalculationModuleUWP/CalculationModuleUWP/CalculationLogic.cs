@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,10 @@ namespace CalculationModuleUWP
 {
     public class CalculationLogic
     {
+        /// <summary>
+        /// 暂存的哈希表
+        /// </summary>
+        private static Hashtable titlehash = new Hashtable();
         //待测试
         /// <summary>
         /// 小数转分数
@@ -203,6 +209,39 @@ namespace CalculationModuleUWP
                 case ")": return -1;
                 default: return 0;
             }
+        }
+        /// <summary>
+        /// 生成题目
+        /// </summary>
+        public static void GenerateTitle()
+        {
+            FileStream fs = new FileStream("D:\\四则运算.txt", FileMode.Create);
+            //答案的TXT
+            FileStream da = new FileStream("D:\\四则运算的答案.txt", FileMode.Create);
+            int plus = 1;
+            foreach (string a in titlehash.Keys)
+            {
+                //获得字节数组
+                byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题." + a + " =" + "\r\n");
+                //开始写入
+                fs.Write(data, 0, data.Length);
+                plus++;
+            }
+            //清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
+            plus = 1;
+            foreach (string b in titlehash.Values)
+            {
+                //获得字节数组
+                byte[] data = System.Text.Encoding.Default.GetBytes("第" + plus + "题:" + b + "\r\n");
+                //开始写入
+                da.Write(data, 0, data.Length);
+                plus++;
+            }
+            //清空缓冲区、关闭流
+            da.Flush();
+            da.Close();
         }
         ///// <summary>
         ///// 获取完整数值
