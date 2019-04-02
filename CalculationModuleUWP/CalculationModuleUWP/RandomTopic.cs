@@ -8,6 +8,7 @@ namespace CalculationModuleUWP
 {
     public class RandomTopic
     {
+        internal static Random random = new Random();
         /// <summary>
         /// 一年级
         /// </summary>
@@ -69,9 +70,8 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         public static string SixGrade()
         {
-            Random random = new Random();
             string ret = RandomDigit(0,3);
-            for(int i=0;i<random.Next(3,5);i++)
+            for(int i=0;i<random.Next(3,6);i++)
             {
                 ret += RandomSymbols.Operators(1,5) + RandomDigit(0, 3);
             }
@@ -85,7 +85,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         public static string RandomDigit(int min,int max)
         {
-            Random random = new Random();
             switch(random.Next(min,max))
             {
                 case 0:

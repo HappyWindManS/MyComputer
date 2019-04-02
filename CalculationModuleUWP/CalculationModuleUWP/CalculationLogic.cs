@@ -191,18 +191,18 @@ namespace CalculationModuleUWP
                 int length = Evaluation(strEquation);
                 if (length == 99)
                 {
-                    stacknum.Push(FractionalConversion(strEquation.Substring(0, strEquation.Length)));
+                    stacknum.Push(reductionOfFraction(FractionalConversion(strEquation.Substring(0, strEquation.Length))));
                     while (stacknum.Count != 1)
                     {
                         var one = stacknum.Pop();
                         var two = stacknum.Pop();
-                        stacknum.Push(fractionalArithmetic(stacksymbol.Pop(),two.ToString(), one.ToString()));
+                        stacknum.Push(reductionOfFraction(fractionalArithmetic(stacksymbol.Pop(),two.ToString(), one.ToString())));
                     }
                     return stacknum.Peek().ToString();
                 }
                 if (length != 0)
                 {
-                    stacknum.Push(FractionalConversion(strEquation.Substring(0, length)));
+                    stacknum.Push(reductionOfFraction(FractionalConversion(strEquation.Substring(0, length))));
                     strEquation = strEquation.Substring(length, strEquation.Length - length);
                 }
                 else if (GetOperationLevel(strEquation.Substring(0, 1)) >
@@ -215,7 +215,7 @@ namespace CalculationModuleUWP
                 {
                     var one = stacknum.Pop();
                     var two = stacknum.Pop();
-                    stacknum.Push(fractionalArithmetic(stacksymbol.Pop(), two.ToString(), one.ToString()));
+                    stacknum.Push(reductionOfFraction(fractionalArithmetic(stacksymbol.Pop(), two.ToString(), one.ToString())));
                     stacksymbol.Push(strEquation.Substring(0, 1));
                     strEquation = strEquation.Substring(1, strEquation.Length - 1);
                 }
