@@ -2,12 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
+
 
 namespace CalculationModuleUWP
 {
@@ -55,7 +50,7 @@ namespace CalculationModuleUWP
             try
             {
                 int indexes = grade.IndexOf("/");
-                int element = Math.Abs(int.Parse(grade.Substring(0, indexes)));
+                int element = int.Parse(grade.Substring(0, indexes));
                 int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
                 int min = Math.Min(element, denominator);
                 for (int i = 1; i < min + 1; i++)
@@ -70,11 +65,11 @@ namespace CalculationModuleUWP
                 }
                 if (grade.Substring(0, 1) == "－")
                 {
-                    return "－" + element.ToString() + "/" + denominator.ToString();
+                    return "－" + element.ToString() + "/" + denominator;
                 }
                 else
                 {
-                    return element.ToString() + "/" + denominator.ToString();
+                    return element.ToString() + "/" + denominator;
                 }
             }
             catch
@@ -308,12 +303,24 @@ namespace CalculationModuleUWP
                         min[i] = min[i] + 100;
                     }
                 }
-                return min.Min();
+                return GetMin(min);
             }        
             else
             {
                 return 0;
             }
+        }
+        internal static int GetMin(int[] array)
+        {
+            int ret = -1;
+            foreach(var a in array)
+            {
+                if(a>ret)
+                {
+                    ret = a;
+                }
+            }
+            return ret;
         }
         /// <summary>
         /// 获取运算符等级
@@ -339,27 +346,27 @@ namespace CalculationModuleUWP
         /// </summary>
         /// <param name="strtxt">保存的文本</param>
         /// <param name="filename">文件名</param>
-        internal async void SaveTxt(string strtxt, string filename)
-        {
-            FileSavePicker fp = new FileSavePicker();
-            var filedb = new[] { ".txt" };
-            fp.FileTypeChoices.Add(".txt", filedb);
-            //fp.SuggestedFileName = "Answer " + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
-            fp.SuggestedFileName = filename;
-            StorageFile sf = await fp.PickSaveFileAsync();
-            if (sf != null)
-            {
-                using (StorageStreamTransaction transaction = await sf.OpenTransactedWriteAsync())
-                {
-                    using (DataWriter dataWriter = new DataWriter(transaction.Stream))
-                    {
-                        dataWriter.WriteString(strtxt);
-                        transaction.Stream.Size = await dataWriter.StoreAsync();
-                        await transaction.CommitAsync();
-                    }
-                }
-            }
-        }
+        //internal async void SaveTxt(string strtxt, string filename)
+        //{
+        //    FileSavePicker fp = new FileSavePicker();
+        //    var filedb = new[] { ".txt" };
+        //    fp.FileTypeChoices.Add(".txt", filedb);
+        //    //fp.SuggestedFileName = "Answer " + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+        //    fp.SuggestedFileName = filename;
+        //    StorageFile sf = await fp.PickSaveFileAsync();
+        //    if (sf != null)
+        //    {
+        //        using (StorageStreamTransaction transaction = await sf.OpenTransactedWriteAsync())
+        //        {
+        //            using (DataWriter dataWriter = new DataWriter(transaction.Stream))
+        //            {
+        //                dataWriter.WriteString(strtxt);
+        //                transaction.Stream.Size = await dataWriter.StoreAsync();
+        //                await transaction.CommitAsync();
+        //            }
+        //        }
+        //    }
+        //}
         /// <summary>
         /// 生成题目
         /// </summary>
