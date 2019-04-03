@@ -68,9 +68,9 @@ namespace CalculationModuleUWP
                         i = 1;
                     }
                 }
-                if (grade.Substring(0, 1) == "－")
+                if (grade.Substring(0, 1) == "-")
                 {
-                    return "－" + element.ToString() + "/" + denominator.ToString();
+                    return "-" + element.ToString() + "/" + denominator.ToString();
                 }
                 else
                 {
@@ -104,9 +104,9 @@ namespace CalculationModuleUWP
                     element = element - denominator;
                     i++;
                 }
-                if (grade.Substring(0, 1) == "－")
+                if (grade.Substring(0, 1) == "-")
                 {
-                    return "－" + i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString();
+                    return "-" + i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString();
                 }
                 else
                 {

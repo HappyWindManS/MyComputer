@@ -9,7 +9,7 @@ namespace size1test
         {
             //Console.WriteLine(CalculationLogic.consequence("＋", 1, 3));
             //Console.WriteLine(CalculationLogic.FractionalConversion("2.25"));
-            Console.WriteLine(Port.Branch("9/7－7/8－5.2"));
+            Console.WriteLine(Port.Branch("7/8－61/8"));
             //Console.WriteLine(port.ProblemGeneration("20", "六年级"));
             //for(int i=0;i<100;i++)
             //{
@@ -29,7 +29,7 @@ namespace size1test
             //    Console.WriteLine(i + ". " + a);
             //    i++;
             //}
-            //Console.WriteLine(CalculationLogic.ScoreReversePolishType("1/4＋1/2÷4/7×4－7/2－1"));
+            //Console.WriteLine(Port.Branch("1/4＋1/2÷4/7×4－7/2－1"));
             Console.ReadKey();
         }
     }
