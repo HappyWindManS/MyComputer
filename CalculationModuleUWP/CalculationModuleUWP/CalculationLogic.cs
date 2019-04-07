@@ -13,7 +13,6 @@ namespace CalculationModuleUWP
 {
     internal class CalculationLogic
     {
-        //待测试
         /// <summary>
         /// 小数转分数
         /// </summary>

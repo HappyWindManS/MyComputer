@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CalculationModuleUWP;
 
 namespace CalculationModuleUWP
 {
@@ -64,10 +65,49 @@ namespace CalculationModuleUWP
             }
             return "";
         }
-        //括号
-        internal static void bracket()
+        /// <summary>
+        /// 括号
+        /// </summary>
+        internal static string bracket(string topic)
         {
-
+            Stack<object> stacknum = new Stack<object>();
+            Stack<string> stacksymbol = new Stack<string>();
+            stacksymbol.Push("#");
+            while (topic.Length != 0)
+            {
+                int length = CalculationLogic.Evaluation(topic);
+                if (length == 99)
+                {
+                    stacknum.Push(Convert.ToDouble(topic.Substring(0, topic.Length)));
+                    while (stacknum.Count != 1)
+                    {
+                        var one = stacknum.Pop();
+                        var two = stacknum.Pop();
+                        stacknum.Push(CalculationLogic.consequence(stacksymbol.Pop(), Convert.ToDouble(two), Convert.ToDouble(one)));
+                    }
+                    return stacknum.Peek().ToString();
+                }
+                if (length != 0)
+                {
+                    stacknum.Push(Convert.ToDouble(topic.Substring(0, length)));
+                    topic = topic.Substring(length, topic.Length - length);
+                }
+                else if (CalculationLogic.GetOperationLevel(topic.Substring(0, 1)) >
+                    CalculationLogic.GetOperationLevel(stacksymbol.Peek()))
+                {
+                    stacksymbol.Push(topic.Substring(0, 1));
+                    topic = topic.Substring(1, topic.Length - 1);
+                }
+                else
+                {
+                    var one = stacknum.Pop();
+                    var two = stacknum.Pop();
+                    stacknum.Push(CalculationLogic.consequence(stacksymbol.Pop(), Convert.ToDouble(two), Convert.ToDouble(one)));
+                    stacksymbol.Push(topic.Substring(0, 1));
+                    topic = topic.Substring(1, topic.Length - 1);
+                }
+            }
+            return "";
         }
     }
 }
