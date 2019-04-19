@@ -48,7 +48,6 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         internal static string FiveGrade()
         {
-            Random random = new Random();
             if(random.Next(1,3)==1)
             {
                 return RandomSymbols.Decimals(1, 100, 1, 100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Integer(1, 100);
@@ -57,7 +56,6 @@ namespace CalculationModuleUWP
             {
                 return RandomSymbols.Integer(1, 100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Decimals(1, 100, 1, 100);
             }
-
             return RandomSymbols.Decimals(1,100,1,100) + RandomSymbols.Operators(1, 5) + RandomSymbols.Decimals(1, 100, 1, 100);
         }
         /// <summary>

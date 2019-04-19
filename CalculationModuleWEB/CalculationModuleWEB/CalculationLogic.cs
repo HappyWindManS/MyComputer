@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-
 
 namespace CalculationModuleUWP
 {
     internal class CalculationLogic
     {
-        //待测试
         /// <summary>
         /// 小数转分数
         /// </summary>
@@ -50,7 +46,7 @@ namespace CalculationModuleUWP
             try
             {
                 int indexes = grade.IndexOf("/");
-                int element = int.Parse(grade.Substring(0, indexes));
+                int element = Math.Abs(int.Parse(grade.Substring(0, indexes)));
                 int denominator = int.Parse(grade.Substring(indexes + 1, grade.Length - indexes - 1));
                 int min = Math.Min(element, denominator);
                 for (int i = 1; i < min + 1; i++)
@@ -63,13 +59,13 @@ namespace CalculationModuleUWP
                         i = 1;
                     }
                 }
-                if (grade.Substring(0, 1) == "－")
+                if (grade.Substring(0, 1) == "-")
                 {
-                    return "－" + element.ToString() + "/" + denominator;
+                    return "-" + element.ToString() + "/" + denominator.ToString();
                 }
                 else
                 {
-                    return element.ToString() + "/" + denominator;
+                    return element.ToString() + "/" + denominator.ToString();
                 }
             }
             catch
@@ -99,9 +95,9 @@ namespace CalculationModuleUWP
                     element = element - denominator;
                     i++;
                 }
-                if (grade.Substring(0, 1) == "－")
+                if (grade.Substring(0, 1) == "-")
                 {
-                    return "－" + i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString();
+                    return "-" + i.ToString() + "∧" + element.ToString() + "/" + denominator.ToString();
                 }
                 else
                 {
@@ -313,9 +309,9 @@ namespace CalculationModuleUWP
         internal static int GetMin(int[] array)
         {
             int ret = -1;
-            foreach(var a in array)
+            foreach (var a in array)
             {
-                if(a>ret)
+                if (a > ret)
                 {
                     ret = a;
                 }

@@ -16,7 +16,7 @@ namespace size1test
             //    Console.WriteLine(RandomTopic.SixGrade());
             //}
             Hashtable hashtable = new Hashtable();
-            hashtable = Port.ProblemGeneration("20", "六年级");
+            hashtable = Port.ProblemGeneration("20", "一年级");
             int i = 1;
             foreach (var a in hashtable.Keys)
             {
