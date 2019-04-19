@@ -19,6 +19,7 @@ namespace CalculationModuleUWP
         /// <returns></returns>
         public static Hashtable ProblemGeneration(string questionNumber,string grade)
         {
+            titleHash = new Hashtable();
             switch(grade)
             {
                 case "一年级":
