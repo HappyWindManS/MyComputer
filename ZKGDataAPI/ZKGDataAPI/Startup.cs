@@ -32,13 +32,13 @@ namespace ZKGDataAPI
             services.AddControllers();
 
 
-            services.AddDbContext<ZKGDataAPIContext>(opt =>
-             opt.UseInMemoryDatabase("ZKGDataList"));
+            //services.AddDbContext<ZKGDataAPIContext>(opt =>
+            // opt.UseInMemoryDatabase("ZKGDataList"));
 
             services.AddDbContext<ZKGDataAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ZKGDataAPIContext")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers();
 
             // 注册 Swagger 生成器, 定义1个或者多个 Swagger 文件

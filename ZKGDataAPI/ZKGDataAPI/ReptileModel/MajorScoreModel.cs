@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ZGKdata.Data_Table
+namespace ZKGDataAPI.ReptileModel
 {
     public class MajorScoreModel
     {
-        public string average { get; set; }
-        public string year { get; set; }
-        public string min { get; set; }
-        public string school_id { get; set; }
-        public string min_section { get; set; }
-        public string max { get; set; }
-        public string special_id { get; set; }
-        public string local_province_name { get; set; }
-        public string local_batch_name { get; set; }
-        public string spname { get; set; }
-        public string name { get; set; }
-        public string local_type_name { get; set; }
         public string dual_class_name { get; set; }
-        public string proscore { get; set; }
- 
-      
-        
+        public string f211 { get; set; }
+        public string f985 { get; set; }
+        public string id { get; set; }
+        public string is_important { get; set; }
+        public string levell { get; set; }
+        public string name { get; set; }
+        public string school_id { get; set; }
+        public string school_nature { get; set; }
+        public string school_sp_id { get; set; }
+        public string school_type { get; set; }
+        public string special_id { get; set; }
+        public string spname { get; set; }
+        public string type_name { get; set; }
+        public string year { get; set; }
     }
 }

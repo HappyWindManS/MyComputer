@@ -11,5 +11,9 @@ namespace ZKGDataAPI.TabelModels
     {
         [Key]
         public Guid guid { get; set; }
+        public Region()
+        {
+            this.guid = new Guid();
+        }
     }
 }

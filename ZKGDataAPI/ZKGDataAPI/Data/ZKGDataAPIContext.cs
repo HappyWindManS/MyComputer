@@ -17,6 +17,6 @@ namespace ZKGDataAPI.Models
 
         public DbSet<ZGKdata.Data_Table.User> User { get; set; }
         public DbSet<ZKGDataAPI.TabelModels.SchoolScore> SchoolScore { get; set; }
-        public DbSet<ZKGDataAPI.TabelModels.MajorSore> MajorSore { get; set; }
+        public DbSet<ZKGDataAPI.TabelModels.MajorClassScore> MajorSore { get; set; }
     }
 }
