@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,17 +18,24 @@ namespace OfficeManagement_system
             InitializeComponent();
         }
 
-        private void ButtonLogin_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void LabelLogin_Click(object sender, EventArgs e)
         {
             this.Hide();
             OMS_Enroll enroll = new OMS_Enroll();
             enroll.ShowDialog();
             this.Show();
+        }
+
+        private void ButtonLogin_Click_1(object sender, EventArgs e)
+        {
+            if (new EmployeeBLL().Login(TextBoxName.Text, TextBoxPassWord.Text))
+            {
+                MessageBox.Show("登录成功");
+            }
+            else
+            {
+                MessageBox.Show("登录失败，用户名或密码错误");
+            }
         }
     }
 }

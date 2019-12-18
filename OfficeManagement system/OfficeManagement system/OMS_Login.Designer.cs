@@ -46,6 +46,7 @@
             this.ButtonLogin.TabIndex = 0;
             this.ButtonLogin.Text = "登录";
             this.ButtonLogin.UseVisualStyleBackColor = true;
+            this.ButtonLogin.Click += new System.EventHandler(this.ButtonLogin_Click_1);
             // 
             // TextBoxName
             // 
