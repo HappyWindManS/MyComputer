@@ -12,7 +12,7 @@ namespace Entity
     public class Meeting
     {  
         public int MeetingId { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime MeetingTime { get; set; }
         public string Registrar { get; set; }
         public string BriefDescription { get; set; }
         public Meeting()
