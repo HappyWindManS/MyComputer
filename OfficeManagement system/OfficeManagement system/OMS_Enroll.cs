@@ -10,19 +10,14 @@ using System.Windows.Forms;
 
 namespace OfficeManagement_system
 {
-    public partial class Form1 : Form
+    public partial class OMS_Enroll : Form
     {
-        public Form1()
+        public OMS_Enroll()
         {
             InitializeComponent();
         }
 
-        private void ButtonLogin_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelLogin_Click(object sender, EventArgs e)
+        private void OMS_Enroll_Load(object sender, EventArgs e)
         {
 
         }

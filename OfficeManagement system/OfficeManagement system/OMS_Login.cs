@@ -16,5 +16,18 @@ namespace OfficeManagement_system
         {
             InitializeComponent();
         }
+
+        private void ButtonLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelLogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OMS_Enroll enroll = new OMS_Enroll();
+            enroll.ShowDialog();
+            this.Show();
+        }
     }
 }
