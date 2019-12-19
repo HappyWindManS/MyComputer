@@ -70,7 +70,7 @@ namespace BusinessLogicLayer
         {
             cmd.CommandText = "DeleteEmployee";
             cmd.Parameters.Clear();
-            cmd.Parameters.Add("@EmployeeID", SqlDbType.Char, 15).Value = EmployeeId;
+            cmd.Parameters.Add("@EmployeeID", SqlDbType.Int).Value = EmployeeId;
             int i = DBAccess.ExecuteSQL(cmd);
             if (i > 0)
                 return true;

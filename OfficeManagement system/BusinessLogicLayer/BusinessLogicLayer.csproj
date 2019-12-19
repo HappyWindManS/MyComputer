@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendanceBLL.cs" />
+    <Compile Include="ConfereeBLL.cs" />
     <Compile Include="EmployeeBLL.cs" />
+    <Compile Include="FileBorrowingLogBLL.cs" />
+    <Compile Include="MeetingBLL.cs" />
+    <Compile Include="PaperBLL.cs" />
+    <Compile Include="PaperSortBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
