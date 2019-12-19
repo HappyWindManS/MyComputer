@@ -102,6 +102,10 @@
       <Project>{18F8681D-6871-4452-BB91-907B65FB7DC2}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{A39B0B50-119D-45DF-AC27-6CF3C45815B2}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

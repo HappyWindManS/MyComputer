@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -99,6 +100,28 @@ namespace BusinessLogicLayer
                 return true;
             else
                 return false;
+        }
+
+        public List<Employee> GetAll()
+        {
+            cmd.CommandText = "GetAllEmployee";
+            cmd.Parameters.Clear();
+            var list = new List<Employee>();
+            var data = DBAccess.ReadData(cmd);
+            while (data.Read())
+            {
+                var e = new Employee();
+                e.EmployeeID = Convert.ToInt32(data["EmployeeID"]);
+                e.Name = data["Name"].ToString().Trim();             
+                e.Age = Convert.ToInt32(data["Age"]);
+                e.Birthday = Convert.ToDateTime(data["EmployeeFunction"]);
+                e.Sex = Convert.ToBoolean(data["Sex"]);
+                e.Position = data["Position"].ToString().Trim();
+                e.BriefDescription = data["BriefDescription"].ToString().Trim();
+                list.Add(e);
+            }
+            data.Close();
+            return list;
         }
     }
 }

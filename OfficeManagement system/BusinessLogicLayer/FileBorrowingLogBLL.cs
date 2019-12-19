@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -76,6 +77,26 @@ namespace BusinessLogicLayer
                 return true;
             else
                 return false;
+        }
+
+        public List<FileBorrowingLog> GetAll()
+        {
+            cmd.CommandText = "GetAllFileBorrowingLog";
+            cmd.Parameters.Clear();
+            var list = new List<FileBorrowingLog>();
+            var data = DBAccess.ReadData(cmd);
+            while (data.Read())
+            {
+                var e = new FileBorrowingLog();
+                e.BorrowDate = Convert.ToDateTime(data["BorrowDate"]);
+                e.EmployeeId = Convert.ToInt32(data["EmployeeId"]);
+                e.FBLId = Convert.ToInt32(data["FBLId"]);
+                e.ReturnTime = Convert.ToDateTime(data["ReturnTime"]);
+                e.PaperId = Convert.ToInt32(data["PaperId"]);
+                list.Add(e);
+            }
+            data.Close();
+            return list;
         }
     }
 }

@@ -31,6 +31,11 @@ namespace OfficeManagement_system
             if (new EmployeeBLL().Login(TextBoxName.Text, TextBoxPassWord.Text))
             {
                 MessageBox.Show("登录成功");
+                this.Hide();
+                var employee = new EmployeeBLL().GetAllEmployee();
+                OMS_Main main = new OMS_Main();
+                main.Show();
+                this.Close();            
             }
             else
             {

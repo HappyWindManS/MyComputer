@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -73,6 +74,25 @@ namespace BusinessLogicLayer
                 return true;
             else
                 return false;
+        }
+
+        public List<Attendance> GetAll()
+        {
+            cmd.CommandText = "GetAllAttendance";
+            cmd.Parameters.Clear();
+            var list = new List<Attendance>();
+            var data = DBAccess.ReadData(cmd);
+            while (data.Read())
+            {
+                var e = new Attendance();
+                e.AttendanceId = Convert.ToInt32(data["AttendanceId"]);
+                e.EmployeeId = Convert.ToInt32(data["EmployeeId"]);
+                e.SignInTime = Convert.ToDateTime(data["SignInTime"]);
+                e.SignOutTime = Convert.ToDateTime(data["SignOutTime"]);            
+                list.Add(e);
+            }
+            data.Close();
+            return list;
         }
     }
 }

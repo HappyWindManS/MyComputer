@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -69,6 +70,23 @@ namespace BusinessLogicLayer
                 return true;
             else
                 return false;
+        }
+
+        public List<PaperSort> GetAll()
+        {
+            cmd.CommandText = "GetAllPaperSort";
+            cmd.Parameters.Clear();
+            var list = new List<PaperSort>();
+            var data = DBAccess.ReadData(cmd);
+            while (data.Read())
+            {
+                var e = new PaperSort();
+                e.Name = Convert.ToString(data["Name"]);
+                e.PaperSortId = Convert.ToInt32(data["PaperSortId"]);
+                list.Add(e);
+            }
+            data.Close();
+            return list;
         }
     }
 }
