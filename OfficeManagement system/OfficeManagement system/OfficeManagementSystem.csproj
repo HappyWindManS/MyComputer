@@ -58,6 +58,12 @@
     <Compile Include="OMS_Login.Designer.cs">
       <DependentUpon>OMS_Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="OMS_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OMS_Main.Designer.cs">
+      <DependentUpon>OMS_Main.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="OMS_Enroll.resx">
@@ -65,6 +71,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OMS_Login.resx">
       <DependentUpon>OMS_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OMS_Main.resx">
+      <DependentUpon>OMS_Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
