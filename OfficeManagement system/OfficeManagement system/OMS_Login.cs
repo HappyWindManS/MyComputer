@@ -37,5 +37,11 @@ namespace OfficeManagement_system
                 MessageBox.Show("登录失败，用户名或密码错误");
             }
         }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            TextBoxName.Text = null;
+            TextBoxPassWord.Text = null;
+        }
     }
 }

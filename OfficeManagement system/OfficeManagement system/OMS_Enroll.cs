@@ -36,5 +36,10 @@ namespace OfficeManagement_system
                 MessageBox.Show("注册失败");
             }
         }
+
+        private void EnrollButtonNO_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
