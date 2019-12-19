@@ -22,8 +22,15 @@ namespace OfficeManagement_system
         private List<Paper> _paper;
         private List<PaperSort> _paperSort;
         private List<Meeting> _meeting;
+        private string _employeeName;
         public OMS_Main()
         {
+            InitializeComponent();
+        }
+
+        public OMS_Main(string name)
+        {
+            _employeeName = name;
             InitializeComponent();
         }
 
@@ -42,7 +49,7 @@ namespace OfficeManagement_system
         {
             if (TGOneButSign.Text == "签到")
             {
-
+                new Attendance
             }
         }
 

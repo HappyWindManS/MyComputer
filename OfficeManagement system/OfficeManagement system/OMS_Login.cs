@@ -33,7 +33,7 @@ namespace OfficeManagement_system
                 MessageBox.Show("登录成功");
                 this.Hide();
                 var employee = new EmployeeBLL().GetAllEmployee();
-                OMS_Main main = new OMS_Main();
+                OMS_Main main = new OMS_Main(TextBoxName.Text);
                 main.Show();
                 this.Close();            
             }
